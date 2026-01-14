@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Alunos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/professores/professores.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="navbar-container"></div>
+
+    <main class="py-5">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold">Meus Alunos</h1>
+                <a href="dashboard.html" class="btn btn-outline-secondary">Voltar</a>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-0 fw-bold">Lista de Alunos</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control form-control-sm" id="searchTable" placeholder="Pesquisar alunos...">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover" id="alunos-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Nº Aluno</th>
+                                <th>Turma</th>
+                                <th>Email</th>
+                                <th>Média</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>João Silva</td>
+                                <td>001</td>
+                                <td>10ºA</td>
+                                <td>joao@email.com</td>
+                                <td><span class="badge bg-success">18</span></td>
+                                <td><button class="btn btn-sm btn-warning">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Maria Santos</td>
+                                <td>002</td>
+                                <td>10ºA</td>
+                                <td>maria@email.com</td>
+                                <td><span class="badge bg-success">17</span></td>
+                                <td><button class="btn btn-sm btn-warning">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Pedro Costa</td>
+                                <td>003</td>
+                                <td>10ºB</td>
+                                <td>pedro@email.com</td>
+                                <td><span class="badge bg-warning">14</span></td>
+                                <td><button class="btn btn-sm btn-warning">Editar</button></td>
+                            </tr>
+                            <tr>
+                                <td>Ana Ferreira</td>
+                                <td>004</td>
+                                <td>10ºB</td>
+                                <td>ana@email.com</td>
+                                <td><span class="badge bg-success">16</span></td>
+                                <td><button class="btn btn-sm btn-warning">Editar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script src="../../js/professores/professores.js"></script>
+</body>
+</html>

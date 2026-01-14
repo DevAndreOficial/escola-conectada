@@ -1,0 +1,25 @@
+/* Customizações específicas para a área de Encarregados */
+
+:root {
+  --primary: #0066cc;
+  --secondary: #00a884;
+  --accent: #ff6b35;
+}
+
+.encarregado-card {
+  border-left: 4px solid var(--secondary);
+}
+
+/* Cores para badges de frequência */
+.badge-presenca {
+  background-color: var(--secondary);
+}
+
+.badge-falta {
+  background-color: var(--accent);
+}
+
+/* Cards de informações do aluno */
+.student-info-card {
+  background: linear-gradient(135deg, rgba(0, 168, 132, 0.05), rgba(0, 102, 204, 0.05));
+}

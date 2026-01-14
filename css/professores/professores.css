@@ -1,0 +1,33 @@
+/* Customizações específicas para a área de Professores */
+
+:root {
+  --primary: #0066cc;
+  --secondary: #00a884;
+  --accent: #ff6b35;
+}
+
+.professor-card {
+  border-left: 4px solid var(--primary);
+}
+
+.dashboard-stats {
+  gap: 1.5rem;
+}
+
+/* Animações para cards de turmas */
+.turma-card {
+  transition: all 0.3s ease;
+}
+
+.turma-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 102, 204, 0.15);
+}
+
+/* Tabelas específicas */
+#turmastable tbody tr:hover {
+  background-color: rgba(0, 102, 204, 0.05);
+}
+
+#alunos-table tbody tr:hover {
+  background-color: rgba(0, 102, 204, 0.05);
+}
