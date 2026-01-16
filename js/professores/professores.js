@@ -33,7 +33,7 @@ function initializeProfessorListeners() {
   const detailButtons = document.querySelectorAll(".btn-info")
   detailButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      console.log("[v0] Detalhes clicado")
+      console.log("Detalhes clicado")
       // Lógica de detalhes aqui
     })
   })

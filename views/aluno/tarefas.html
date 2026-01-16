@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <style>
+        .tarefa-card {
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tarefa-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.15);
+        }
+        .tarefa-card.urgente {
+            border-left-color: #ff6b35;
+        }
+        .tarefa-card.concluida {
+            border-left-color: var(--secondary);
+            opacity: 0.7;
+        }
+        .tarefa-disciplina {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        .prazo-urgente {
+            color: #ff6b35;
+            font-weight: bold;
+        }
+        .prazo-proximo {
+            color: #ffc107;
+        }
+        .status-badge {
+            font-size: 0.85rem;
+            padding: 6px 12px;
+        }
+        .filtro-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .task-checklist {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .task-checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .stats-card {
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .stats-card h4 {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Minhas Tarefas e Trabalhos</h2>
+                    <p class="text-muted">Acompanhe os trabalhos, projetos e tarefas a entregar</p>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <div class="stats-card" style="background-color: #e3f2fd;">
+                            <h4 style="color: var(--primary);">8</h4>
+                            <p class="text-muted mb-0">Tarefas Pendentes</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card" style="background-color: #fce4ec;">
+                            <h4 style="color: #ff6b35;">3</h4>
+                            <p class="text-muted mb-0">Urgentes</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card" style="background-color: #f0f7ff;">
+                            <h4 style="color: var(--secondary);">12</h4>
+                            <p class="text-muted mb-0">Concluídas</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stats-card" style="background-color: #f5f5f5;">
+                            <h4 style="color: #666;">60%</h4>
+                            <p class="text-muted mb-0">Conclusão</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filtros -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button class="btn btn-sm btn-outline-primary filtro-btn active" data-filter="todos">
+                                📋 Todas
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="pendentes">
+                                ⏳ Pendentes
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="urgentes">
+                                🔴 Urgentes
+                            </button>
+                            <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="concluidas">
+                                ✅ Concluídas
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarefas Urgentes -->
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h5 class="mb-3">🔴 Tarefas Urgentes</h5>
+                        
+                        <div class="card border-0 shadow-sm tarefa-card urgente mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Trabalho Prático de Química
+                                        </h6>
+                                        <span class="tarefa-disciplina">Química</span>
+                                    </div>
+                                    <span class="badge bg-danger status-badge">Vence hoje</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Realizar experiência sobre reações químicas e elaborar relatório com análise dos resultados. Trabalho individual ou em par.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Nelson Costa - Laboratório</small>
+                                    <span class="prazo-urgente">Entrega: Hoje às 17:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card urgente mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Ensaio sobre Revolução Francesa
+                                        </h6>
+                                        <span class="tarefa-disciplina">História</span>
+                                    </div>
+                                    <span class="badge bg-danger status-badge">Amanhã</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Elaborar um ensaio com 3-4 páginas analisando os impactos sociais e políticos da Revolução Francesa. Formato: Arial 12pt, espaçamento 1.5.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Pedro Gomes</small>
+                                    <span class="prazo-urgente">Entrega: 18/01 às 08:00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card urgente mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Exercícios Matemática - Funções
+                                        </h6>
+                                        <span class="tarefa-disciplina">Matemática</span>
+                                    </div>
+                                    <span class="badge bg-warning status-badge">Próximos dias</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Resolver exercícios 1-25 do capítulo sobre funções logarítmicas e exponenciais. Mostrar todos os cálculos.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. João Santos</small>
+                                    <span class="prazo-proximo">Entrega: 22/01 às 10:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarefas Pendentes -->
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <h5 class="mb-3">⏳ Outras Tarefas Pendentes</h5>
+                        
+                        <div class="card border-0 shadow-sm tarefa-card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Projeto de Investigação - Biologia
+                                        </h6>
+                                        <span class="tarefa-disciplina">Biologia</span>
+                                    </div>
+                                    <span class="badge bg-info status-badge">02/02</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Desenvolver um projeto investigativo sobre adaptações de organismos. Apresentação em PowerPoint e relatório de 5 páginas.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Sandra Rocha - Trabalho em grupo (3-4 alunos)</small>
+                                    <small class="text-muted">Entrega: 02/02</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Análise de Poesia Portuguesa
+                                        </h6>
+                                        <span class="tarefa-disciplina">Português</span>
+                                    </div>
+                                    <span class="badge bg-info status-badge">25/01</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Escolher um poema de um poeta português e fazer análise crítica identificando recursos estilísticos e contexto histórico.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Carla Silva</small>
+                                    <small class="text-muted">Entrega: 25/01</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Programa em Python - Calculadora
+                                        </h6>
+                                        <span class="tarefa-disciplina">Informática</span>
+                                    </div>
+                                    <span class="badge bg-info status-badge">28/01</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Criar uma calculadora em Python com interface gráfica (GUI) que realize operações básicas e cálculos mais avançados.
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Bruno Lima - Trabalho individual</small>
+                                    <small class="text-muted">Entrega: 28/01</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card mb-3">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            Trabalho de Artes Plásticas
+                                        </h6>
+                                        <span class="tarefa-disciplina">Artes</span>
+                                    </div>
+                                    <span class="badge bg-info status-badge">01/02</span>
+                                </div>
+                                <p class="card-text text-muted mb-2">
+                                    Criar uma composição artística usando a técnica de colagem, abordando o tema "Transformação".
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <small class="text-muted">Prof. Isabel Ferreira</small>
+                                    <small class="text-muted">Entrega: 01/02</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarefas Concluídas -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="mb-3">✅ Tarefas Recentemente Concluídas</h5>
+                        
+                        <div class="card border-0 shadow-sm tarefa-card concluida mb-2">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            <s>Ficha de Revisão - Álgebra</s>
+                                        </h6>
+                                        <span class="tarefa-disciplina">Matemática</span>
+                                    </div>
+                                    <span class="badge bg-success status-badge">Concluído</span>
+                                </div>
+                                <small class="text-muted">Entregue em 15/01 às 14:30</small>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card concluida mb-2">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            <s>Apresentação sobre Fotossíntese</s>
+                                        </h6>
+                                        <span class="tarefa-disciplina">Biologia</span>
+                                    </div>
+                                    <span class="badge bg-success status-badge">Concluído</span>
+                                </div>
+                                <small class="text-muted">Entregue em 14/01 às 10:00</small>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm tarefa-card concluida mb-2">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="card-title mb-2">
+                                            <s>Exercícios de Tradução - Inglês</s>
+                                        </h6>
+                                        <span class="tarefa-disciplina">Inglês</span>
+                                    </div>
+                                    <span class="badge bg-success status-badge">Concluído</span>
+                                </div>
+                                <small class="text-muted">Entregue em 13/01 às 09:15</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../../js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSidebar();
+            loadHeader();
+
+            document.querySelectorAll('.filtro-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

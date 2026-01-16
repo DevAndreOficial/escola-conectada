@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,175 +9,184 @@
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/professores/professores.css">
 </head>
+
 <body>
-    
-    <div id="header-container">
-        <header class="bg-white border-bottom">
-    <div class="container-fluid">
-        <div class="d-flex justify-content-between align-items-center py-3 px-4">
-            <div class="d-flex align-items-center gap-3">
-                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background: var(--primary); color: white; font-size: 1.5rem; font-weight: bold;">
-                    📚
+    <div class="app-layout d-flex">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="sidebar-logo-icon">📚</span>
+                    <div>
+                        <h2 class="sidebar-title">Escola</h2>
+                    </div>
                 </div>
-                <h1 class="mb-0 fw-bold" style="color: var(--dark); font-size: 1.5rem;">Sistema Escolar</h1>
             </div>
-            <div id="user-info" class="text-end">
-                <p class="mb-0 text-muted small">Bem-vindo,</p>
-                <p class="mb-0 fw-bold" style="color: var(--dark);" id="user-name">Utilizador</p>
+
+            <nav class="sidebar-menu" id="sidebar-menu">
+                <li>
+                    <a href="dashboard.html" class="sidebar-link active">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="publicar-avisos.html" class="sidebar-link">
+                        <span>📢</span>
+                        <span>Publicar Avisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="listar-turmas.html" class="sidebar-link">
+                        <span>👥</span>
+                        <span>Turmas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="listar-alunos.html" class="sidebar-link">
+                        <span>👨‍🎓</span>
+                        <span>Alunos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="relatorios.html" class="sidebar-link">
+                        <span>📋</span>
+                        <span>Relatórios</span>
+                    </a>
+                </li>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" id="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sair</span>
+                </button>
             </div>
-        </div>
-    </div>
-</header>
+        </aside>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
 
-    </div>
-    <div id="navbar-container">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container-fluid px-4">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav ms-auto gap-2" id="navbar-menu">
-                <li><a href="">Home</a></li>
-                <!-- Menu items dinamicamente inseridos por cada seção -->
-            </ul>
-            <div class="ms-3">
-                <a href="../../index.html" class="btn btn-outline-danger btn-sm">Sair</a>
-            </div>
-        </div>
-    </div>
-</nav>
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Dashboard do Professor</h2>
+                    <p class="text-muted">Bem-vindo ao seu espaço de trabalho</p>
+                </div>
 
-    </div>
-
-    <main class="py-5">
-        <div class="container-fluid px-4">
-            <h1 class="fw-bold mb-4">Dashboard do Professor</h1>
-
-            <div class="row g-4 mb-5">
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="text-muted mb-2">Minhas Turmas</h6>
-                                    <h2 class="fw-bold" style="color: var(--primary);">5</h2>
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Minhas Turmas</h6>
+                                        <h2 class="fw-bold" style="color: var(--primary);">5</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">📚</span>
                                 </div>
-                                <span style="font-size: 2rem;">📚</span>
+                                <a href="listar-turmas.html" class="btn btn-sm btn-primary mt-3 w-100">Ver Turmas</a>
                             </div>
-                            <a href="listar-turmas.html" class="btn btn-sm btn-primary mt-3 w-100">Ver Turmas</a>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="text-muted mb-2">Meus Alunos</h6>
-                                    <h2 class="fw-bold" style="color: var(--secondary);">127</h2>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Meus Alunos</h6>
+                                        <h2 class="fw-bold" style="color: var(--secondary);">127</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">👨‍🎓</span>
                                 </div>
-                                <span style="font-size: 2rem;">👨‍🎓</span>
+                                <a href="listar-alunos.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--secondary); border-color: var(--secondary); color: white;">Ver Alunos</a>
                             </div>
-                            <a href="listar-alunos.html" class="btn btn-sm btn-success mt-3 w-100" style="background-color: var(--secondary); border-color: var(--secondary);">Ver Alunos</a>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-md-4">
-                    <div class="card border-0 shadow-sm h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h6 class="text-muted mb-2">Relatórios</h6>
-                                    <h2 class="fw-bold" style="color: var(--accent);">8</h2>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Relatórios</h6>
+                                        <h2 class="fw-bold" style="color: var(--accent);">8</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">📊</span>
                                 </div>
-                                <span style="font-size: 2rem;">📊</span>
+                                <a href="relatorios.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Ver Relatórios</a>
                             </div>
-                            <a href="relatorios.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Ver Relatórios</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-light border-bottom">
-                            <h5 class="card-title mb-0 fw-bold">Turmas Recentes</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Turma</th>
-                                        <th>Alunos</th>
-                                        <th>Ano</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>10ºA</td>
-                                        <td>28</td>
-                                        <td>Matemática</td>
-                                    </tr>
-                                    <tr>
-                                        <td>11ºB</td>
-                                        <td>25</td>
-                                        <td>Português</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header bg-light border-bottom">
-                            <h5 class="card-title mb-0 fw-bold">Últimas Atividades</h5>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 fw-bold">Turmas Recentes</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-sm mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="ps-4">Turma</th>
+                                            <th>Alunos</th>
+                                            <th class="pe-4">Disciplina</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="ps-4">10ºA</td>
+                                            <td>28</td>
+                                            <td class="pe-4">Matemática</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4">11ºB</td>
+                                            <td>25</td>
+                                            <td class="pe-4">Português</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <ul class="list-unstyled">
-                                <li class="pb-3 border-bottom">
-                                    <strong>Notas Lançadas</strong>
-                                    <br><small class="text-muted">Há 2 horas - Turma 10ºA</small>
-                                </li>
-                                <li class="pb-3 border-bottom">
-                                    <strong>Frequência Registada</strong>
-                                    <br><small class="text-muted">Há 1 dia - Turma 11ºB</small>
-                                </li>
-                                <li>
-                                    <strong>Relatório Criado</strong>
-                                    <br><small class="text-muted">Há 3 dias - Relatório Trimestral</small>
-                                </li>
-                            </ul>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 fw-bold">Últimas Atividades</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="pb-3 border-bottom">
+                                        <strong>Notas Lançadas</strong>
+                                        <br><small class="text-muted">Há 2 horas - Turma 10ºA</small>
+                                    </li>
+                                    <li class="pb-3 border-bottom">
+                                        <strong>Frequência Registada</strong>
+                                        <br><small class="text-muted">Há 1 dia - Turma 11ºB</small>
+                                    </li>
+                                    <li class="pb-3">
+                                        <strong>Relatório Criado</strong>
+                                        <br><small class="text-muted">Há 3 dias - Relatório Trimestral</small>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
         </div>
-    </main>
-
-    <div id="footer-container">
-        <footer class="bg-dark text-white mt-5 py-4">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="mb-0">&copy; 2025 Sistema Escolar. Todos os direitos reservados.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <p class="mb-0">Versão 1.0 - Plataforma Educacional</p>
-            </div>
-        </div>
-    </div>
-</footer>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../js/global.js"></script>
     <script src="../../js/professores/professores.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader()
+        });
+    </script>
 </body>
+
 </html>

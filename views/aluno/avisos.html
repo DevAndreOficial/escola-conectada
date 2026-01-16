@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos e Comunicados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Avisos e Comunicados</h2>
+                    <p class="text-muted">Mantenha-se informado com as últimas notícias da instituição</p>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="d-flex gap-2 mb-4">
+                            <button class="btn btn-sm btn-primary active" data-filter="todos">Todos</button>
+                            <button class="btn btn-sm btn-outline-primary" data-filter="importante">⚠️ Importantes</button>
+                            <button class="btn btn-sm btn-outline-primary" data-filter="evento">📅 Eventos</button>
+                            <button class="btn btn-sm btn-outline-primary" data-filter="academico">📚 Académico</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline de Avisos -->
+                <div class="timeline">
+                    <!-- Aviso 1 -->
+                    <div class="card border-0 shadow-sm mb-3 aviso-card" data-categoria="importante">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="font-size: 2rem;">⚠️</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-0">Suspensão de Aulas</h5>
+                                        <span class="badge bg-danger">Importante</span>
+                                    </div>
+                                    <p class="text-muted small mb-2">Publicado há 2 horas</p>
+                                    <p class="card-text">As aulas estão suspensas amanhã (17/01) devido a atividades de formação docente. As aulas retomam normalmente no dia 18/01.</p>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Direção da Escola</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso 2 -->
+                    <div class="card border-0 shadow-sm mb-3 aviso-card" data-categoria="evento">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="font-size: 2rem;">📅</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-0">Festa da Ciência 2026</h5>
+                                        <span class="badge bg-info">Evento</span>
+                                    </div>
+                                    <p class="text-muted small mb-2">Publicado há 1 dia</p>
+                                    <p class="card-text">Grande evento com demonstrações científicas, palestras interativas e prémios. Todos os alunos estão convidados a participar. O evento acontecerá no dia 25 de janeiro, a partir das 14h.</p>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Departamento de Ciências</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso 3 -->
+                    <div class="card border-0 shadow-sm mb-3 aviso-card" data-categoria="academico">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="font-size: 2rem;">📚</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-0">Prazos para Entrega de Trabalhos</h5>
+                                        <span class="badge bg-warning text-dark">Académico</span>
+                                    </div>
+                                    <p class="text-muted small mb-2">Publicado há 3 dias</p>
+                                    <p class="card-text">Lembrete dos prazos de entrega de trabalhos académicos:</p>
+                                    <ul class="small mt-2">
+                                        <li>Português: Ensaio sobre "Pessoa" - 20/01</li>
+                                        <li>História: Pesquisa sobre Revolução Francesa - 22/01</li>
+                                        <li>Matemática: Trabalho prático de estatística - 24/01</li>
+                                    </ul>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Departamento Pedagógico</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso 4 -->
+                    <div class="card border-0 shadow-sm mb-3 aviso-card" data-categoria="academico">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="font-size: 2rem;">📚</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-0">Reunião de Pais</h5>
+                                        <span class="badge bg-secondary">Académico</span>
+                                    </div>
+                                    <p class="text-muted small mb-2">Publicado há 1 semana</p>
+                                    <p class="card-text">Convite para reunião de pais/encarregados de educação. Data: 25/01/2026 às 19h. Local: Auditório da Escola. Assuntos a abordar: desempenho académico, comportamento, planeamento do 2º semestre.</p>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Diretor de Turma - Prof. Silva</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aviso 5 -->
+                    <div class="card border-0 shadow-sm mb-3 aviso-card" data-categoria="evento">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start gap-3">
+                                <div style="font-size: 2rem;">📅</div>
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="card-title mb-0">Dia da Educação - Atividades Especiais</h5>
+                                        <span class="badge bg-info">Evento</span>
+                                    </div>
+                                    <p class="text-muted small mb-2">Publicado há 10 dias</p>
+                                    <p class="card-text">No dia 28 de janeiro comemoraremos o Dia da Educação com atividades especiais. Haverá debates, workshops, apresentações culturais e jogos educativos. Participação voluntária.</p>
+                                    <div class="mt-3">
+                                        <small class="text-muted">Administração</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script>
+        // Filtros de avisos
+        document.querySelectorAll('[data-filter]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Atualizar botão ativo
+                document.querySelectorAll('[data-filter]').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                // Filtrar avisos
+                document.querySelectorAll('.aviso-card').forEach(card => {
+                    if (filter === 'todos') {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = card.getAttribute('data-categoria') === filter ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

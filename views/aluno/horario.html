@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horário de Aulas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <style>
+        .horario-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .horario-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
+        .horario-table th {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .hora-slot {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            width: 80px;
+        }
+        .aula-cell {
+            background-color: #f0f7ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .aula-cell:hover {
+            background-color: #e0f0ff;
+            box-shadow: 0 2px 8px rgba(0,102,204,0.2);
+        }
+        .aula-cell h6 {
+            margin: 5px 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .aula-cell small {
+            color: #666;
+            display: block;
+        }
+        .sala-badge {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-top: 5px;
+        }
+        .dia-atual {
+            background-color: #fff3cd !important;
+        }
+        .sem-aula {
+            background-color: #e8e8e8;
+            color: #999;
+        }
+        .info-card {
+            border-left: 4px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Meu Horário</h2>
+                    <p class="text-muted">Consulte seu horário de aulas semanal</p>
+                </div>
+
+                <!-- Semana Seleção -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Semana de 13 a 17 de Janeiro de 2026</h5>
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-outline-primary btn-sm">← Anterior</button>
+                                        <button type="button" class="btn btn-primary btn-sm">Hoje</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm">Próxima →</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela de Horário -->
+                <div class="row mb-4">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="horario-table">
+                                <thead>
+                                    <tr>
+                                        <th>Hora</th>
+                                        <th>Segunda (13)</th>
+                                        <th>Terça (14)</th>
+                                        <th>Quarta (15)</th>
+                                        <th>Quinta (16)</th>
+                                        <th>Sexta (17)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="hora-slot">08:00-08:45</td>
+                                        <td class="aula-cell">
+                                            <h6>Português</h6>
+                                            <small>Prof. Carla Silva</small>
+                                            <div class="sala-badge">Sala 12</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Matemática</h6>
+                                            <small>Prof. João Santos</small>
+                                            <div class="sala-badge">Sala 8</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Inglês</h6>
+                                            <small>Prof. Maria Costa</small>
+                                            <div class="sala-badge">Lab 1</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>História</h6>
+                                            <small>Prof. Pedro Gomes</small>
+                                            <div class="sala-badge">Sala 15</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Educação Física</h6>
+                                            <small>Prof. André Oliveira</small>
+                                            <div class="sala-badge">Ginásio</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">08:45-09:30</td>
+                                        <td class="aula-cell">
+                                            <h6>Português</h6>
+                                            <small>Prof. Carla Silva</small>
+                                            <div class="sala-badge">Sala 12</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Matemática</h6>
+                                            <small>Prof. João Santos</small>
+                                            <div class="sala-badge">Sala 8</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Física</h6>
+                                            <small>Prof. Ricardo Mendes</small>
+                                            <div class="sala-badge">Lab Fís.</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>História</h6>
+                                            <small>Prof. Pedro Gomes</small>
+                                            <div class="sala-badge">Sala 15</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Educação Física</h6>
+                                            <small>Prof. André Oliveira</small>
+                                            <div class="sala-badge">Ginásio</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">09:30-10:15</td>
+                                        <td class="sem-aula">Intervalo</td>
+                                        <td class="sem-aula">Intervalo</td>
+                                        <td class="sem-aula">Intervalo</td>
+                                        <td class="sem-aula">Intervalo</td>
+                                        <td class="sem-aula">Intervalo</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">10:15-11:00</td>
+                                        <td class="aula-cell">
+                                            <h6>Biologia</h6>
+                                            <small>Prof. Sandra Rocha</small>
+                                            <div class="sala-badge">Lab Bio</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Química</h6>
+                                            <small>Prof. Nelson Costa</small>
+                                            <div class="sala-badge">Lab Quím.</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Educação Cívica</h6>
+                                            <small>Prof. Fátima Alves</small>
+                                            <div class="sala-badge">Sala 20</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Filosofia</h6>
+                                            <small>Prof. Zélia Martins</small>
+                                            <div class="sala-badge">Sala 10</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Informática</h6>
+                                            <small>Prof. Bruno Lima</small>
+                                            <div class="sala-badge">Lab Info</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">11:00-11:45</td>
+                                        <td class="aula-cell">
+                                            <h6>Biologia</h6>
+                                            <small>Prof. Sandra Rocha</small>
+                                            <div class="sala-badge">Lab Bio</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Química</h6>
+                                            <small>Prof. Nelson Costa</small>
+                                            <div class="sala-badge">Lab Quím.</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Artes</h6>
+                                            <small>Prof. Isabel Ferreira</small>
+                                            <div class="sala-badge">Sala Artes</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Filosofia</h6>
+                                            <small>Prof. Zélia Martins</small>
+                                            <div class="sala-badge">Sala 10</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Informática</h6>
+                                            <small>Prof. Bruno Lima</small>
+                                            <div class="sala-badge">Lab Info</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">11:45-12:30</td>
+                                        <td class="sem-aula">Almoço</td>
+                                        <td class="sem-aula">Almoço</td>
+                                        <td class="sem-aula">Almoço</td>
+                                        <td class="sem-aula">Almoço</td>
+                                        <td class="sem-aula">Almoço</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">12:30-13:15</td>
+                                        <td class="aula-cell">
+                                            <h6>Matemática</h6>
+                                            <small>Prof. João Santos</small>
+                                            <div class="sala-badge">Sala 8</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Português</h6>
+                                            <small>Prof. Carla Silva</small>
+                                            <div class="sala-badge">Sala 12</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Geografia</h6>
+                                            <small>Prof. Rogério Dias</small>
+                                            <div class="sala-badge">Sala 18</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Inglês</h6>
+                                            <small>Prof. Maria Costa</small>
+                                            <div class="sala-badge">Lab 1</div>
+                                        </td>
+                                        <td class="sem-aula">Livre</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hora-slot">13:15-14:00</td>
+                                        <td class="aula-cell">
+                                            <h6>Matemática</h6>
+                                            <small>Prof. João Santos</small>
+                                            <div class="sala-badge">Sala 8</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Português</h6>
+                                            <small>Prof. Carla Silva</small>
+                                            <div class="sala-badge">Sala 12</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Geografia</h6>
+                                            <small>Prof. Rogério Dias</small>
+                                            <div class="sala-badge">Sala 18</div>
+                                        </td>
+                                        <td class="aula-cell">
+                                            <h6>Inglês</h6>
+                                            <small>Prof. Maria Costa</small>
+                                            <div class="sala-badge">Lab 1</div>
+                                        </td>
+                                        <td class="sem-aula">Livre</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professores e Contatos -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm info-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">📚 Próximas Aulas</h5>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Portuguès</strong>
+                                            <span class="text-muted">Hoje 08:00</span>
+                                        </div>
+                                        <small class="text-muted">Sala 12 - Prof. Carla Silva</small>
+                                    </div>
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Matemática</strong>
+                                            <span class="text-muted">Hoje 12:30</span>
+                                        </div>
+                                        <small class="text-muted">Sala 8 - Prof. João Santos</small>
+                                    </div>
+                                    <div class="list-group-item px-0 py-3 border-0">
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Educação Física</strong>
+                                            <span class="text-muted">Sexta 08:00</span>
+                                        </div>
+                                        <small class="text-muted">Ginásio - Prof. André Oliveira</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm info-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">🎓 Informações Úteis</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <strong>Período Letivo:</strong><br>
+                                        <small class="text-muted">13 de Janeiro - 31 de Maio de 2026</small>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Pautas de Férias:</strong><br>
+                                        <small class="text-muted">Semana de 20-27 de Dezembro de 2025</small>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Turma:</strong><br>
+                                        <small class="text-muted">11º A (Ensino Médio - Ciências)</small>
+                                    </li>
+                                    <li>
+                                        <strong>Diretor de Turma:</strong><br>
+                                        <small class="text-muted">Prof. Carla Silva - carla.silva@escola.pt</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../../js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSidebar();
+            loadHeader();
+        });
+
+        document.querySelectorAll('[data-filter] button').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+</body>
+</html>
