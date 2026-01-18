@@ -1,0 +1,23 @@
+/* Customizações específicas para a área de Administração */
+
+:root {
+  --primary: #0066cc;
+  --secondary: #00a884;
+  --accent: #ff6b35;
+}
+
+.admin-card {
+  border-left: 4px solid var(--accent);
+}
+
+/* Tabelas de gerenciamento */
+#professors-table tbody tr:hover,
+#classes-table tbody tr:hover,
+#students-table tbody tr:hover {
+  background-color: rgba(255, 107, 53, 0.05);
+}
+
+/* Botões de ação */
+.action-buttons {
+  gap: 0.5rem;
+}

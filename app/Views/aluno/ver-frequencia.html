@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Frequência</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <style>
+        .frequencia-stats {
+            background: linear-gradient(135deg, var(--primary) 0%, #0052a3 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        .frequencia-stats h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .frequencia-stats p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .disciplina-row {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            transition: background-color 0.2s;
+        }
+        .disciplina-row:hover {
+            background-color: #f8f9fa;
+        }
+        .disciplina-nome {
+            flex: 1;
+            font-weight: 500;
+        }
+        .frequencia-bar {
+            flex: 2;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        .progress {
+            height: 25px;
+            border-radius: 12px;
+            background-color: #e9ecef;
+        }
+        .progress-bar {
+            border-radius: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85rem;
+        }
+        .frequencia-percentage {
+            min-width: 60px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .frequencia-percentage.excelente {
+            color: var(--secondary);
+        }
+        .frequencia-percentage.boa {
+            color: #0066cc;
+        }
+        .frequencia-percentage.aceitavel {
+            color: #ffc107;
+        }
+        .frequencia-percentage.fraca {
+            color: #ff6b35;
+        }
+        .faltas-card {
+            border-left: 4px solid var(--primary);
+        }
+        .falta-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .falta-item:last-child {
+            border-bottom: none;
+        }
+        .falta-type {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .falta-justificada {
+            background-color: #d4edda;
+            color: var(--secondary);
+        }
+        .falta-nao-justificada {
+            background-color: #f8d7da;
+            color: #ff6b35;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        .alert-frequencia {
+            border-radius: 8px;
+            border-left: 4px solid #ff6b35;
+        }
+        .info-card {
+            border-left: 4px solid var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Minha Frequência</h2>
+                    <p class="text-muted">Acompanhe sua presença nas aulas</p>
+                </div>
+
+                <!-- Resumo Geral -->
+                <div class="frequencia-stats">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h2>94%</h2>
+                            <p>Taxa de Frequência Geral</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-size: 1.2rem; margin: 0;">✓ Excelente</p>
+                            <small>Período atual: Janeiro - Junho</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerta -->
+                <div class="alert alert-warning alert-frequencia" role="alert">
+                    <strong>⚠️ Atenção:</strong> Tem 6 faltas não justificadas. Solicite justificação aos seus encarregados de educação para manter sua frequência dentro dos limites estabelecidos pela lei.
+                </div>
+
+                <!-- Frequência por Disciplina -->
+                <div class="row mb-5">
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Frequência por Disciplina</h5>
+                                
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Português</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 96%; background: var(--secondary);">96%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage excelente">96%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Matemática</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 92%; background: var(--primary);">92%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage boa">92%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">História</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 94%; background: var(--secondary);">94%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage excelente">94%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Física</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 88%; background: #ffc107;">88%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage aceitavel">88%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Química</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 95%; background: var(--secondary);">95%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage excelente">95%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Biologia</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 93%; background: var(--secondary);">93%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage excelente">93%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Inglês</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 91%; background: var(--primary);">91%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage boa">91%</div>
+                                </div>
+
+                                <div class="disciplina-row">
+                                    <div class="disciplina-nome">Informática</div>
+                                    <div class="frequencia-bar">
+                                        <div class="progress">
+                                            <div class="progress-bar" style="width: 97%; background: var(--secondary);">97%</div>
+                                        </div>
+                                    </div>
+                                    <div class="frequencia-percentage excelente">97%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registro de Faltas -->
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm faltas-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">📋 Resumo de Faltas</h5>
+                                
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="fw-bold">Total de Faltas</span>
+                                        <span style="font-size: 1.3rem; color: var(--primary);">12</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Faltas Justificadas</span>
+                                        <span style="color: var(--secondary);">6</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Faltas Não Justificadas</span>
+                                        <span style="color: #ff6b35;">6</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Limite Crítico</span>
+                                        <span style="color: #999;">30 aulas</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Aulas Possíveis até Limite</span>
+                                        <span style="color: #ffc107; font-weight: bold;">18 aulas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm faltas-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">📅 Últimas Faltas Registadas</h5>
+                                
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>13/01/2026</strong>
+                                            <small class="d-block text-muted">Português - Prof. Carla Silva</small>
+                                        </div>
+                                        <span class="falta-type falta-nao-justificada">Não Justificada</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>12/01/2026</strong>
+                                            <small class="d-block text-muted">Matemática - Prof. João Santos</small>
+                                        </div>
+                                        <span class="falta-type falta-justificada">Justificada</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>10/01/2026</strong>
+                                            <small class="d-block text-muted">História - Prof. Pedro Gomes</small>
+                                        </div>
+                                        <span class="falta-type falta-nao-justificada">Não Justificada</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>09/01/2026</strong>
+                                            <small class="d-block text-muted">Biologia - Prof. Sandra Rocha</small>
+                                        </div>
+                                        <span class="falta-type falta-justificada">Justificada</span>
+                                    </div>
+                                </div>
+
+                                <div class="falta-item">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <strong>08/01/2026</strong>
+                                            <small class="d-block text-muted">Educação Física - Prof. André Oliveira</small>
+                                        </div>
+                                        <span class="falta-type falta-nao-justificada">Não Justificada</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações Úteis -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm info-card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">ℹ️ Informações Importantes</h5>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3">
+                                        <strong>Limite de Faltas:</strong><br>
+                                        <small class="text-muted">O limite máximo de faltas injustificadas é de 30 por ano letivo. Ultrapassar este limite pode resultar em retenção de frequência.</small>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Justificação de Faltas:</strong><br>
+                                        <small class="text-muted">As faltas podem ser justificadas pelos pais/encarregados de educação através de documento comprovativo entregue ao diretor de turma no prazo máximo de 48 horas após a falta.</small>
+                                    </li>
+                                    <li class="mb-3">
+                                        <strong>Falta por Atraso:</strong><br>
+                                        <small class="text-muted">Atrasos superiores a 15 minutos no início da aula são considerados falta de meia aula.</small>
+                                    </li>
+                                    <li>
+                                        <strong>Diretor de Turma:</strong><br>
+                                        <small class="text-muted">Prof. Carla Silva - carla.silva@escola.pt - Gabinete 12</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="../../js/global.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSidebar();
+            loadHeader();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Área do Aluno{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url('/css/style.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="sidebar-logo-icon">📚</span>
+                    <div>
+                        <h2 class="sidebar-title">Escola</h2>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu" id="sidebar-menu">
+                <li>
+                    <a href="dashboard.html" class="sidebar-link active">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ver-notas.html" class="sidebar-link">
+                        <span>📝</span>
+                        <span>Minhas Notas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="avisos.html" class="sidebar-link">
+                        <span>📢</span>
+                        <span>Avisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="horario.html" class="sidebar-link">
+                        <span>⏰</span>
+                        <span>Meu Horário</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tarefas.html" class="sidebar-link">
+                        <span>✓</span>
+                        <span>Tarefas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ver-frequencia.html" class="sidebar-link">
+                        <span>📋</span>
+                        <span>Frequência</span>
+                    </a>
+                </li>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" id="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="content">
+            {% block content %} {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

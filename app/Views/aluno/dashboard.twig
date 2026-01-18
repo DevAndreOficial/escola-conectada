@@ -1,0 +1,143 @@
+{% extends "layouts/aluno.twig" %}
+
+{% block content %}
+
+<div class="app-layout d-flex">
+        
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Meu Desempenho Académico</h2>
+                    <p class="text-muted">Acompanhe suas notas e avisos da instituição</p>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Média Geral</h6>
+                                        <h2 class="fw-bold" style="color: var(--primary);">16,8</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">📊</span>
+                                </div>
+                                <p class="text-muted small mt-2">Baseado em P1, P2 e MAC</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Frequência</h6>
+                                        <h2 class="fw-bold" style="color: var(--secondary);">94%</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">✓</span>
+                                </div>
+                                <p class="text-muted small mt-2">6 faltas no período</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Avisos Novos</h6>
+                                        <h2 class="fw-bold" style="color: var(--accent);">3</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">📢</span>
+                                </div>
+                                <a href="avisos.html" class="text-decoration-none small mt-2 d-inline-block">Ver avisos →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title mb-0 fw-bold">Notas por Disciplina</h5>
+                                    <a href="ver-notas.html" class="btn btn-sm btn-primary">Ver Detalhes</a>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th class="ps-4">Disciplina</th>
+                                            <th class="text-center">P1</th>
+                                            <th class="text-center">P2</th>
+                                            <th class="text-center">MAC</th>
+                                            <th class="text-center pe-4">Média</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="ps-4">Português</td>
+                                            <td class="text-center"><span class="badge bg-primary">17,5</span></td>
+                                            <td class="text-center"><span class="badge bg-primary">16,0</span></td>
+                                            <td class="text-center"><span class="badge bg-primary">17,0</span></td>
+                                            <td class="text-center pe-4 fw-bold">16,8</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4">Matemática</td>
+                                            <td class="text-center"><span class="badge bg-success">18,0</span></td>
+                                            <td class="text-center"><span class="badge bg-success">17,5</span></td>
+                                            <td class="text-center"><span class="badge bg-success">16,5</span></td>
+                                            <td class="text-center pe-4 fw-bold">17,3</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4">História</td>
+                                            <td class="text-center"><span class="badge bg-info">15,5</span></td>
+                                            <td class="text-center"><span class="badge bg-info">16,0</span></td>
+                                            <td class="text-center"><span class="badge bg-info">15,5</span></td>
+                                            <td class="text-center pe-4 fw-bold">15,7</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4">Física</td>
+                                            <td class="text-center"><span class="badge bg-warning text-dark">14,0</span></td>
+                                            <td class="text-center"><span class="badge bg-warning text-dark">15,0</span></td>
+                                            <td class="text-center"><span class="badge bg-warning text-dark">14,5</span></td>
+                                            <td class="text-center pe-4 fw-bold">14,5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 fw-bold">Informações Gerais</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="mb-2"><strong>Turma:</strong> 11ºA</p>
+                                <p class="mb-2"><strong>Ano Letivo:</strong> 2023/2024</p>
+                                <p class="mb-2"><strong>Diretor de Turma:</strong> Prof. Silva</p>
+                                <p class="mb-2"><strong>Período:</strong> 1º Semestre</p>
+                                
+                                <hr>
+                                
+                                <div class="d-grid gap-2">
+                                    <a href="ver-notas.html" class="btn btn-outline-primary">Ver Boletim Completo</a>
+                                    <button class="btn btn-outline-secondary" onclick="window.print()">Imprimir</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}

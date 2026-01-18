@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administração</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/administracao/administracao.css">
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <span class="sidebar-logo-icon">📚</span>
+                    <div>
+                        <h2 class="sidebar-title">Escola</h2>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu" id="sidebar-menu">
+                <li>
+                    <a href="dashboard.html" class="sidebar-link active">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="publicar-avisos.html" class="sidebar-link">
+                        <span>📢</span>
+                        <span>Publicar Avisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="gerir-professores.html" class="sidebar-link">
+                        <span>👨‍🏫</span>
+                        <span>Professores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="gerir-turmas.html" class="sidebar-link">
+                        <span>📚</span>
+                        <span>Turmas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="gerir-alunos.html" class="sidebar-link">
+                        <span>👨‍🎓</span>
+                        <span>Alunos</span>
+                    </a>
+                </li>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" id="logout-btn" onclick="logout()">
+                    <span>🚪</span>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Painel de Administração</h2>
+                    <p class="text-muted">Bem-vindo ao painel de controlo do sistema escolar</p>
+                </div>
+
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Professores</h6>
+                                        <h2 class="fw-bold" style="color: var(--primary);">42</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">👨‍🏫</span>
+                                </div>
+                                <a href="gerir-professores.html" class="btn btn-sm btn-primary mt-3 w-100">Gerir</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Turmas</h6>
+                                        <h2 class="fw-bold" style="color: var(--secondary);">18</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">📚</span>
+                                </div>
+                                <a href="gerir-turmas.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--secondary); border-color: var(--secondary); color: white;">Gerir</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h6 class="text-muted mb-2">Alunos</h6>
+                                        <h2 class="fw-bold" style="color: var(--accent);">542</h2>
+                                    </div>
+                                    <span style="font-size: 2rem;">👨‍🎓</span>
+                                </div>
+                                <a href="gerir-alunos.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Gerir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 fw-bold">Atividades Recentes</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled">
+                                    <li class="pb-3 border-bottom">
+                                        <strong>Novo Professor Adicionado</strong>
+                                        <br><small class="text-muted">Maria Silva - Há 1 hora</small>
+                                    </li>
+                                    <li class="pb-3 border-bottom">
+                                        <strong>Turma Criada</strong>
+                                        <br><small class="text-muted">12ºB - Há 3 horas</small>
+                                    </li>
+                                    <li class="pb-3">
+                                        <strong>Aluno Registado</strong>
+                                        <br><small class="text-muted">Pedro Costa - Há 1 dia</small>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0 fw-bold">Estatísticas Rápidas</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Total de Utilizadores:</strong> <span class="badge bg-primary">602</span></p>
+                                <p><strong>Ano Letivo Ativo:</strong> <span class="badge bg-success">2023/2024</span></p>
+                                <p><strong>Taxa de Ocupação:</strong> <span class="badge bg-warning text-dark">85%</span></p>
+                                <p><strong>Últimas Alterações:</strong> <span class="badge bg-info">Há 1 hora</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script src="../../js/administracao/administracao.js"></script>
+</body>
+</html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script src="../../js/administracao/administracao.js"></script>
+</body>
+</html>

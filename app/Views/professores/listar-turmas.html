@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Turmas - Professor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Minhas Turmas</h2>
+                    <p class="text-muted">Selecione uma turma para preenchimento de notas</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Turma 1 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100" style="cursor: pointer; transition: transform 0.2s;" 
+                             onmouseover="this.style.transform='translateY(-5px)'" 
+                             onmouseout="this.style.transform='translateY(0)'"
+                             onclick="abrirPauta('10A')">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">10ºA</h5>
+                                        <p class="text-muted small mb-0">Português | 28 alunos</p>
+                                    </div>
+                                    <span style="font-size: 2rem;">📚</span>
+                                </div>
+                                <hr>
+                                <p class="small mb-2"><strong>Período Atual:</strong> 1º Semestre</p>
+                                <p class="small mb-3"><strong>Ano Letivo:</strong> 2023/2024</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-primary flex-grow-1" onclick="event.stopPropagation(); abrirPauta('10A')">
+                                        Preencher Notas
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation(); verPareceres('10A')">
+                                        📋
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turma 2 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100" style="cursor: pointer; transition: transform 0.2s;" 
+                             onmouseover="this.style.transform='translateY(-5px)'" 
+                             onmouseout="this.style.transform='translateY(0)'"
+                             onclick="abrirPauta('11B')">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">11ºB</h5>
+                                        <p class="text-muted small mb-0">Português | 26 alunos</p>
+                                    </div>
+                                    <span style="font-size: 2rem;">📚</span>
+                                </div>
+                                <hr>
+                                <p class="small mb-2"><strong>Período Atual:</strong> 1º Semestre</p>
+                                <p class="small mb-3"><strong>Ano Letivo:</strong> 2023/2024</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-primary flex-grow-1" onclick="event.stopPropagation(); abrirPauta('11B')">
+                                        Preencher Notas
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation(); verPareceres('11B')">
+                                        📋
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Turma 3 -->
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card border-0 shadow-sm h-100" style="cursor: pointer; transition: transform 0.2s;" 
+                             onmouseover="this.style.transform='translateY(-5px)'" 
+                             onmouseout="this.style.transform='translateY(0)'"
+                             onclick="abrirPauta('12C')">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start mb-3">
+                                    <div>
+                                        <h5 class="card-title mb-1">12ºC</h5>
+                                        <p class="text-muted small mb-0">Português | 24 alunos</p>
+                                    </div>
+                                    <span style="font-size: 2rem;">📚</span>
+                                </div>
+                                <hr>
+                                <p class="small mb-2"><strong>Período Atual:</strong> 1º Semestre</p>
+                                <p class="small mb-3"><strong>Ano Letivo:</strong> 2023/2024</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-sm btn-primary flex-grow-1" onclick="event.stopPropagation(); abrirPauta('12C')">
+                                        Preencher Notas
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary" onclick="event.stopPropagation(); verPareceres('12C')">
+                                        📋
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm mt-5">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">Informações Úteis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Período de Preenchimento</h6>
+                                <p class="text-muted">Notas do 1º semestre devem ser lançadas até <strong>31 de janeiro</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="fw-bold">Tipos de Avaliação</h6>
+                                <p class="text-muted">P1, P2, MAC (Média de Atividades Contínuas) e outras avaliações específicas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script>
+        function abrirPauta(turma) {
+            window.location.href = `pauta-notas.html?turma=${turma}`;
+        }
+
+        function verPareceres(turma) {
+            alert(`Pareceres e observações da turma ${turma}`);
+            // Implementar visualização de pareceres
+        }
+    </script>
+</body>
+</html>

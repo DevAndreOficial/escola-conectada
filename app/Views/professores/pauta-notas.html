@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preencher Notas - Pauta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <style>
+        .pauta-table {
+            font-size: 0.9rem;
+        }
+        .pauta-table input[type="number"] {
+            width: 70px;
+            padding: 5px !important;
+            font-size: 0.9rem;
+        }
+        .pauta-table input:invalid {
+            background-color: #fff3cd;
+        }
+        .pauta-table input:valid {
+            background-color: #fff;
+        }
+        .media-cell {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+        .nota-header {
+            background-color: #0066cc;
+            color: white;
+            text-align: center;
+            padding: 8px !important;
+        }
+        .aluno-header {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <div id="sidebar-container"></div>
+        
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <div class="mb-4">
+                    <h2 class="fw-bold">Preencher Notas - Turma <span id="turmaLabel">10ºA</span></h2>
+                    <p class="text-muted">Preencha as notas de todos os alunos da turma</p>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Configuração da Pauta</h5>
+                                <div class="mb-3">
+                                    <label class="form-label">Período de Avaliação</label>
+                                    <select class="form-select" id="periodosSelect">
+                                        <option value="p1">P1 (Primeira Prova)</option>
+                                        <option value="p2">P2 (Segunda Prova)</option>
+                                        <option value="mac">MAC (Média de Atividades Contínuas)</option>
+                                        <option value="recuperacao">Recuperação</option>
+                                        <option value="exame">Exame Final</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Data da Avaliação</label>
+                                    <input type="date" class="form-control" id="dataAvaliacao">
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="filtrarPorPeriodo()">Atualizar Pauta</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card border-0 shadow-sm bg-light">
+                            <div class="card-body">
+                                <h5 class="card-title mb-3">Instruções</h5>
+                                <ul class="small">
+                                    <li>Preencha as notas direto na tabela abaixo</li>
+                                    <li>Valores entre 0 e 20</li>
+                                    <li>Deixe em branco se não avaliado</li>
+                                    <li>A média é calculada automaticamente</li>
+                                    <li>Clique "Guardar Alterações" ao terminar</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0 fw-bold">Mini Pauta - <span id="periodoDisplay">P1</span></h5>
+                            <div class="gap-2 d-flex">
+                                <button class="btn btn-sm btn-success" onclick="guardarAlteracoes()">
+                                    ✓ Guardar Alterações
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                                    🖨️ Imprimir
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0" style="overflow-x: auto;">
+                        <table class="table table-striped pauta-table mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="aluno-header">Nº</th>
+                                    <th class="aluno-header" style="min-width: 200px;">Nome do Aluno</th>
+                                    <th class="nota-header">P1</th>
+                                    <th class="nota-header">P2</th>
+                                    <th class="nota-header">MAC</th>
+                                    <th class="nota-header">Recuperação</th>
+                                    <th class="nota-header">Média Final</th>
+                                    <th class="nota-header">Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pautaBody">
+                                <!-- Preenchido por JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mt-4 mb-4">
+                    <button class="btn btn-primary btn-lg w-100" onclick="guardarAlteracoes()">
+                        💾 Guardar Todas as Alterações
+                    </button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script>
+        // Dados de exemplo
+        const alunos = [
+            { numero: 1, nome: 'João da Silva', p1: 17.5, p2: 16.0, mac: 17.0, recuperacao: '', media: 16.8 },
+            { numero: 2, nome: 'Maria Santos', p1: 18.0, p2: 17.5, mac: 16.5, recuperacao: '', media: 17.3 },
+            { numero: 3, nome: 'Pedro Costa', p1: 15.5, p2: 16.0, mac: 15.5, recuperacao: '', media: 15.7 },
+            { numero: 4, nome: 'Ana Ferreira', p1: 19.0, p2: 18.5, mac: 19.0, recuperacao: '', media: 18.8 },
+            { numero: 5, nome: 'Carlos Oliveira', p1: 14.0, p2: 15.0, mac: 14.5, recuperacao: '', media: 14.5 },
+            { numero: 6, nome: 'Madalena Silva', p1: 16.0, p2: 15.5, mac: 16.0, recuperacao: '', media: 15.8 },
+            { numero: 7, nome: 'Ricardo Mendes', p1: 13.5, p2: 14.0, mac: 13.0, recuperacao: 15.0, media: 14.5 },
+            { numero: 8, nome: 'Joana Rocha', p1: 17.0, p2: 16.5, mac: 17.5, recuperacao: '', media: 17.3 },
+            { numero: 9, nome: 'Tiago Alves', p1: 15.0, p2: 14.5, mac: 15.0, recuperacao: '', media: 14.8 },
+            { numero: 10, nome: 'Sofia Gomes', p1: 18.5, p2: 18.0, mac: 18.5, recuperacao: '', media: 18.3 },
+        ];
+
+        // Obter turma da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const turma = urlParams.get('turma') || '10A';
+        document.getElementById('turmaLabel').textContent = turma;
+
+        // Carregar pauta na tabela
+        function carregarPauta() {
+            const tbody = document.getElementById('pautaBody');
+            tbody.innerHTML = alunos.map(aluno => `
+                <tr>
+                    <td class="aluno-header" style="width: 50px;">${aluno.numero}</td>
+                    <td class="aluno-header">${aluno.nome}</td>
+                    <td class="nota-header">
+                        <input type="number" class="form-control form-control-sm" value="${aluno.p1 || ''}" 
+                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="p1" 
+                               onchange="calcularMedia(${aluno.numero})">
+                    </td>
+                    <td class="nota-header">
+                        <input type="number" class="form-control form-control-sm" value="${aluno.p2 || ''}" 
+                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="p2"
+                               onchange="calcularMedia(${aluno.numero})">
+                    </td>
+                    <td class="nota-header">
+                        <input type="number" class="form-control form-control-sm" value="${aluno.mac || ''}" 
+                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="mac"
+                               onchange="calcularMedia(${aluno.numero})">
+                    </td>
+                    <td class="nota-header">
+                        <input type="number" class="form-control form-control-sm" value="${aluno.recuperacao || ''}" 
+                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="recuperacao"
+                               onchange="calcularMedia(${aluno.numero})">
+                    </td>
+                    <td class="media-cell" style="width: 80px; text-align: center;">
+                        <span id="media-${aluno.numero}">${aluno.media.toFixed(1)}</span>
+                    </td>
+                    <td style="text-align: center;">
+                        <span id="situacao-${aluno.numero}" class="badge bg-success">
+                            ${aluno.media >= 10 ? 'Aprovado' : (aluno.media >= 8 ? 'Recuperação' : 'Reprovado')}
+                        </span>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Calcular média dinamicamente
+        function calcularMedia(numeroAluno) {
+            const p1 = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="p1"]`).value) || 0;
+            const p2 = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="p2"]`).value) || 0;
+            const mac = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="mac"]`).value) || 0;
+            const recuperacao = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="recuperacao"]`).value) || 0;
+
+            let media = 0;
+            let count = 0;
+
+            if (p1 > 0) { media += p1; count++; }
+            if (p2 > 0) { media += p2; count++; }
+            if (mac > 0) { media += mac; count++; }
+            if (recuperacao > 0) { media = (recuperacao + mac) / 2; count = 2; } // Recuperação substitui P1 e P2
+
+            media = count > 0 ? media / count : 0;
+
+            document.getElementById(`media-${numeroAluno}`).textContent = media.toFixed(1);
+
+            // Atualizar situação
+            const situacao = media >= 10 ? 'Aprovado' : (media >= 8 ? 'Recuperação' : 'Reprovado');
+            const cores = media >= 10 ? 'bg-success' : (media >= 8 ? 'bg-warning text-dark' : 'bg-danger');
+            document.getElementById(`situacao-${numeroAluno}`).textContent = situacao;
+            document.getElementById(`situacao-${numeroAluno}`).className = `badge ${cores}`;
+        }
+
+        // Filtrar por período (apenas visual - em produção conectar com BD)
+        function filtrarPorPeriodo() {
+            const periodo = document.getElementById('periodosSelect').value;
+            const periodoDisplay = {
+                'p1': 'P1 (Primeira Prova)',
+                'p2': 'P2 (Segunda Prova)',
+                'mac': 'MAC (Média de Atividades Contínuas)',
+                'recuperacao': 'Recuperação',
+                'exame': 'Exame Final'
+            };
+            document.getElementById('periodoDisplay').textContent = periodoDisplay[periodo];
+            alert(`Dados do período ${periodoDisplay[periodo]} serão carregados da base de dados`);
+        }
+
+        // Guardar alterações
+        function guardarAlteracoes() {
+            alert('✓ Alterações guardadas com sucesso!\n\nEm produção:\n- Enviar dados para servidor PHP\n- Guardar em base de dados\n- Registar timestamp e utilizador');
+            // Em produção: Usar AJAX para enviar dados para PHP
+        }
+
+        // Carregar pauta ao iniciar
+        carregarPauta();
+    </script>
+</body>
+</html>

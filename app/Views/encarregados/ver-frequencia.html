@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequência do Aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/encarregados/encarregados.css">
+</head>
+<body>
+    <div id="header-container"></div>
+    <div id="navbar-container"></div>
+
+    <main class="py-5">
+        <div class="container-fluid px-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold">Frequência do Aluno</h1>
+                <a href="dashboard.html" class="btn btn-outline-secondary">Voltar</a>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-2">Presenças</h6>
+                            <h2 class="fw-bold" style="color: var(--secondary);">95</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-2">Faltas Injustificadas</h6>
+                            <h2 class="fw-bold" style="color: var(--accent);">3</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-2">Faltas Justificadas</h6>
+                            <h2 class="fw-bold" style="color: var(--primary);">2</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h6 class="text-muted mb-2">Taxa de Frequência</h6>
+                            <h2 class="fw-bold" style="color: var(--secondary);">95%</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-light border-bottom">
+                    <h5 class="card-title mb-0 fw-bold">Detalhes por Disciplina</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Disciplina</th>
+                                <th>Presenças</th>
+                                <th>Faltas</th>
+                                <th>% Frequência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Matemática</td>
+                                <td>38</td>
+                                <td>2</td>
+                                <td><span class="badge bg-success">95%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Português</td>
+                                <td>39</td>
+                                <td>1</td>
+                                <td><span class="badge bg-success">97,5%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Inglês</td>
+                                <td>38</td>
+                                <td>2</td>
+                                <td><span class="badge bg-success">95%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Física</td>
+                                <td>37</td>
+                                <td>3</td>
+                                <td><span class="badge bg-warning">92,5%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script src="../../js/encarregados/encarregados.js"></script>
+</body>
+</html>
