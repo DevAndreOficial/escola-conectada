@@ -5,7 +5,7 @@ namespace App\Middlewares;
 use Pecee\Http\Middleware\IMiddleware;
 use Pecee\Http\Request;
 
-class AuthMiddleware implements IMiddleware
+class AlunoMiddleware implements IMiddleware
 {
     public function handle(Request $request): void
     {
@@ -13,8 +13,11 @@ class AuthMiddleware implements IMiddleware
             session_start();
         }
 
-        if (!isset($_SESSION['user'])) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+        if (
+            empty($_SESSION['user']) ||
+            $_SESSION['user']['perfil'] !== 'aluno'
+        ) {
+            header('Location: ' . URL_DESENVOLVIMENTO . '/');
             exit;
         }
     }

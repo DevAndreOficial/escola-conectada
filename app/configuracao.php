@@ -5,6 +5,7 @@ date_default_timezone_set('UTC');
 
 define('SITE_NOME', 'Escola Conectada');
 define('SITE_DESCRICAO', 'Sistema');
+define('APP_DEBUG', true);
 
 define('URL_DESENVOLVIMENTO', '/www.escola-conectada.com');
 define('URL_PRODUCAO', 'https://www.escola-conectada.com');
@@ -14,6 +15,7 @@ define('URL_BASE', '/www.escola-conectada.com/');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'escola_conectada_db');
 define('DB_USUARIO', 'root');
+define('DB_PORT', '3306');
 define('DB_SENHA', '');
 define('DB_CHARSET', 'utf8');
 define('DB_OPCOES', [
@@ -33,8 +35,8 @@ define('DIR_PATH', __DIR__ . '/');
 
 // Pastas específicas
 define('DIR_INCLUDES', DIR_PATH . 'app/includes/');
-define('DIR_VIEWS',    DIR_PATH . 'app/views/');
-define('DIR_MODELS',   DIR_PATH . 'app/models/');
+define('DIR_VIEWS',    DIR_PATH . 'app/Views/');
+define('DIR_MODELS',   DIR_PATH . 'app/Models/');
 
 // Informações do Sistema
 define('APP_NAME', 'Escola Conectada');

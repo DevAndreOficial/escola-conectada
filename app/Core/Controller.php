@@ -1,9 +1,10 @@
 <?php
-namespace sistema\Nucleo;
 
-use sistema\Suporte\Template;
+namespace App\Core;
 
-class Controlador {
+use App\Suporte\Template;
+
+class Controller {
     protected Template $template;
 
     public function __construct(string $diretorio) 

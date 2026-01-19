@@ -1,6 +1,6 @@
 <?php
 
-namespace sistema\Nucleo; 
+namespace App\Core; 
 // Define o namespace da classe (ajuda na organização do projeto e evita conflitos de nomes)
 
 /**
