@@ -92,5 +92,5 @@ function initializeNavigation() {
 function logout() {
   localStorage.removeItem("userEmail")
   localStorage.removeItem("userType")
-  window.location.href = "../../index.html"
+  window.location.href = "http://localhost/www.escola-conectada.com/login"
 }

@@ -17,7 +17,7 @@ class AlunoMiddleware implements IMiddleware
             empty($_SESSION['user']) ||
             $_SESSION['user']['perfil'] !== 'aluno'
         ) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/');
+            header('Location: ' . URL_DESENVOLVIMENTO . '/aluno');
             exit;
         }
     }

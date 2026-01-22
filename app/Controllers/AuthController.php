@@ -33,6 +33,7 @@ class AuthController extends Controller
             header('Location: ' . URL_DESENVOLVIMENTO . '/login');
             exit;
         }
+        
         $usersModel = new UsersModel();
         $user = $usersModel->buscarParaLogin($login);
 
@@ -41,12 +42,12 @@ class AuthController extends Controller
             header('Location: ' . URL_DESENVOLVIMENTO . '/login');
             exit;
         }
-
         // Usuário inativo
         if ((int)$user->status !== 1) {
             header('Location: ' . URL_DESENVOLVIMENTO . '/login');
             exit;
         }
+
 
         // Senha inválida
         if (!password_verify($senha, $user->senha)) {
@@ -55,7 +56,7 @@ class AuthController extends Controller
         }
 
         // Login válido
-        $_SESSION['usxer'] = [
+        $_SESSION['user'] = [
             'id'     => $user->id_usuario,
             'nome'   => $user->username,
             'perfil' => $user->perfil
