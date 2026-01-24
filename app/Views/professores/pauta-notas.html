@@ -3,37 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preencher Notas - Pauta</title>
+    <title>Mini Pauta de Notas - Angola</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/professores/professores.css">
     <style>
-        .pauta-table {
+        :root {
+            --primary: #0066cc;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --light: #f8f9fa;
+            --dark: #212529;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .minipauta-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .minipauta-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #004499 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .minipauta-header h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .header-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 15px;
+            border-radius: 4px;
+            border-left: 3px solid white;
+        }
+
+        .info-label {
+            font-weight: 600;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .controls-bar {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .minipauta-table {
             font-size: 0.9rem;
+            margin-bottom: 0;
         }
-        .pauta-table input[type="number"] {
-            width: 70px;
-            padding: 5px !important;
-            font-size: 0.9rem;
+
+        .minipauta-table thead th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 12px 8px !important;
+            text-align: center;
+            border: none;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-        .pauta-table input:invalid {
-            background-color: #fff3cd;
+
+        .minipauta-table tbody tr {
+            border-bottom: 1px solid #e9ecef;
         }
-        .pauta-table input:valid {
+
+        .minipauta-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .aluno-info {
+            background: #f8f9fa;
+            font-weight: 500;
+            min-width: 200px;
+        }
+
+        .trimestre-group {
+            background: #f5f5f5;
+            border-left: 2px solid var(--primary);
+        }
+
+        .trimestre-header {
+            background: #e7f0ff;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .nota-input {
+            width: 50px;
+            padding: 6px 4px !important;
+            font-size: 0.85rem;
+            text-align: center;
+            border: 1px solid #dee2e6 !important;
+            transition: all 0.2s ease;
+        }
+
+        .nota-input:focus {
+            background-color: #e7f0ff !important;
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 5px rgba(0, 102, 204, 0.3) !important;
+        }
+
+        .nota-input.empty {
             background-color: #fff;
         }
-        .media-cell {
-            background-color: #f0f0f0;
-            font-weight: bold;
+
+        .nota-input.preenchido {
+            background-color: #e8f5e9;
         }
-        .nota-header {
-            background-color: #0066cc;
-            color: white;
-            text-align: center;
-            padding: 8px !important;
+
+        .mfd-cell {
+            background: #fff3cd;
+            font-weight: 700;
+            font-size: 0.95rem;
         }
-        .aluno-header {
-            background-color: #f8f9fa;
+
+        .sub-header {
+            font-size: 0.75rem;
             font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .acao-cell {
+            text-align: center;
+            width: 80px;
+        }
+
+        .btn-sm {
+            padding: 0.35rem 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            .controls-bar {
+                display: none;
+            }
+            .minipauta-table thead th {
+                background: #333 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .minipauta-table {
+                font-size: 0.85rem;
+            }
+            body {
+                background: white;
+            }
+        }
+
+        .alert-feedback {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-title {
+            font-weight: 700;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control, .form-select {
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #004499;
+        }
+
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 9999;
+        }
+
+        /* ========== RESPONSIVIDADE ========== */
+
+        /* Large Devices (1024px+) */
+        @media (min-width: 1024px) {
+            .minipauta-container {
+                margin: 20px;
+            }
+            
+            .header-info {
+                grid-template-columns: repeat(5, 1fr);
+            }
+            
+            .minipauta-table {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Tablets (768px - 1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .minipauta-container {
+                margin: 15px;
+            }
+
+            .minipauta-header {
+                padding: 15px;
+            }
+
+            .minipauta-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .header-info {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+                margin-top: 10px;
+            }
+
+            .info-item {
+                padding: 8px 12px;
+            }
+
+            .info-label {
+                font-size: 0.8rem;
+                margin-bottom: 2px;
+            }
+
+            .info-value {
+                font-size: 1rem;
+            }
+
+            .controls-bar {
+                padding: 12px 15px;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .controls-bar > div {
+                width: 100%;
+            }
+
+            .controls-bar button,
+            .controls-bar .btn {
+                width: 100%;
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .minipauta-table {
+                font-size: 0.85rem;
+            }
+
+            .minipauta-table thead th {
+                padding: 8px 4px !important;
+                font-size: 0.8rem;
+            }
+
+            .minipauta-table tbody td {
+                padding: 6px 4px !important;
+            }
+
+            .nota-input {
+                width: 45px;
+                padding: 4px 2px !important;
+                font-size: 0.8rem;
+            }
+
+            .aluno-info {
+                min-width: 150px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small Phones (480px - 767px) */
+        @media (max-width: 767px) {
+            body {
+                padding: 0;
+            }
+
+            main {
+                padding: 10px !important;
+            }
+
+            .minipauta-container {
+                margin: 0;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .minipauta-header {
+                padding: 12px;
+                border-radius: 0;
+            }
+
+            .minipauta-header h3 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .header-info {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .info-item {
+                padding: 6px 10px;
+                border-left-width: 2px;
+                font-size: 0.75rem;
+            }
+
+            .info-label {
+                font-size: 0.7rem;
+                margin-bottom: 2px;
+                opacity: 0.8;
+            }
+
+            .info-value {
+                font-size: 0.9rem;
+            }
+
+            .controls-bar {
+                padding: 10px 8px;
+                flex-direction: column;
+                gap: 6px;
+                border-radius: 0;
+            }
+
+            .controls-bar > div {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .controls-bar button,
+            .controls-bar .btn {
+                width: 100%;
+                font-size: 0.85rem;
+                padding: 0.35rem 0.6rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .controls-bar button i,
+            .controls-bar .btn i {
+                margin-right: 0.3rem;
+            }
+
+            .minipauta-table {
+                font-size: 0.75rem;
+                width: 100%;
+            }
+
+            .minipauta-table thead th {
+                padding: 6px 2px !important;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+
+            .minipauta-table tbody td {
+                padding: 4px 2px !important;
+                font-size: 0.75rem;
+            }
+
+            .minipauta-table tbody tr {
+                border-bottom: 0.5px solid #e9ecef;
+            }
+
+            .nota-input {
+                width: 40px;
+                padding: 3px 2px !important;
+                font-size: 0.7rem;
+                height: 28px;
+            }
+
+            .nota-input::placeholder {
+                font-size: 0.65rem;
+            }
+
+            .aluno-info {
+                min-width: 120px;
+                font-size: 0.75rem;
+                font-weight: 500;
+                padding: 4px 2px !important;
+            }
+
+            .trimestre-group {
+                background: #f5f5f5;
+                border-left: 1px solid var(--primary);
+            }
+
+            .sub-header {
+                font-size: 0.65rem;
+                padding: 3px 1px !important;
+            }
+
+            .mfd-cell {
+                background: #fff3cd;
+                font-weight: 600;
+                font-size: 0.8rem;
+                padding: 4px 2px !important;
+            }
+
+            .btn-sm {
+                padding: 0.25rem 0.4rem;
+                font-size: 0.75rem;
+            }
+
+            .modal-body {
+                padding: 12px;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+
+            .form-control,
+            .form-select {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.6rem;
+                height: auto;
+            }
+
+            .modal-footer {
+                padding: 10px;
+                gap: 6px;
+            }
+
+            .modal-footer button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.85rem;
+            }
+
+            /* Esconder informações menos importantes em mobile */
+            .modal-title {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Extra Small Phones (< 480px) */
+        @media (max-width: 479px) {
+            .minipauta-header h3 {
+                font-size: 1rem;
+                margin-bottom: 8px;
+            }
+
+            .header-info {
+                grid-template-columns: 1fr;
+                gap: 6px;
+                margin-top: 6px;
+            }
+
+            .info-item {
+                padding: 5px 8px;
+                font-size: 0.7rem;
+            }
+
+            .info-label {
+                font-size: 0.65rem;
+            }
+
+            .info-value {
+                font-size: 0.85rem;
+            }
+
+            .controls-bar {
+                padding: 8px 6px;
+                gap: 4px;
+            }
+
+            .controls-bar button,
+            .controls-bar .btn {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .minipauta-table {
+                font-size: 0.7rem;
+            }
+
+            .minipauta-table thead th {
+                padding: 4px 1px !important;
+                font-size: 0.65rem;
+            }
+
+            .minipauta-table tbody td {
+                padding: 3px 1px !important;
+            }
+
+            .nota-input {
+                width: 35px;
+                padding: 2px 1px !important;
+                font-size: 0.65rem;
+                height: 24px;
+            }
+
+            .aluno-info {
+                min-width: 100px;
+                font-size: 0.7rem;
+            }
+
+            .mfd-cell {
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Landscape Mode (Tablets e Phones) */
+        @media (orientation: landscape) and (max-height: 600px) {
+            main {
+                padding: 8px !important;
+            }
+
+            .minipauta-header {
+                padding: 8px;
+            }
+
+            .minipauta-header h3 {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+
+            .header-info {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
+                margin-top: 4px;
+            }
+
+            .info-item {
+                padding: 4px 6px;
+                font-size: 0.65rem;
+            }
+
+            .info-label {
+                font-size: 0.6rem;
+            }
+
+            .info-value {
+                font-size: 0.8rem;
+            }
+
+            .minipauta-table {
+                font-size: 0.7rem;
+                max-height: 400px;
+            }
+
+            .minipauta-table thead th {
+                padding: 4px 2px !important;
+                font-size: 0.65rem;
+                position: sticky;
+                top: 0;
+            }
+
+            .controls-bar {
+                padding: 6px 8px;
+                gap: 4px;
+                margin-bottom: 0;
+            }
+
+            .controls-bar button,
+            .controls-bar .btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        /* Corrigir overflow e scroll horizontal */
+        @media (max-width: 1024px) {
+            div[style*="overflow-x: auto"] {
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+            }
+
+            .minipauta-table {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .minipauta-table thead {
+                display: table-header-group;
+            }
+
+            .minipauta-table tbody {
+                display: table-row-group;
+            }
+
+            .minipauta-table tr {
+                display: table-row;
+            }
+
+            .minipauta-table td,
+            .minipauta-table th {
+                display: table-cell;
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+        }
+
+        /* Print Responsiveness */
+        @media print {
+            .controls-bar {
+                display: none;
+            }
+
+            #header-container,
+            #sidebar-container {
+                display: none !important;
+            }
+
+            .minipauta-container {
+                margin: 0;
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+
+            .minipauta-header {
+                padding: 15px;
+            }
+
+            .minipauta-table {
+                font-size: 9pt;
+            }
+
+            .minipauta-table thead th {
+                background: #333 !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+
+            .minipauta-table tbody tr {
+                page-break-inside: avoid;
+            }
+
+            .nota-input {
+                border: none;
+                background: white;
+                color: black;
+            }
+
+            body {
+                background: white;
+                margin: 0;
+                padding: 10px;
+            }
+
+            main {
+                padding: 0 !important;
+            }
         }
     </style>
 </head>
@@ -41,81 +736,97 @@
     <div class="app-layout d-flex">
         <div id="sidebar-container"></div>
         
-        <div class="main-content">
+        <div class="main-content flex-fill">
             <div id="header-container"></div>
 
-            <main>
-                <div class="mb-4">
-                    <h2 class="fw-bold">Preencher Notas - Turma <span id="turmaLabel">10ºA</span></h2>
-                    <p class="text-muted">Preencha as notas de todos os alunos da turma</p>
-                </div>
-
-                <div class="row mb-4">
-                    <div class="col-md-6">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Configuração da Pauta</h5>
-                                <div class="mb-3">
-                                    <label class="form-label">Período de Avaliação</label>
-                                    <select class="form-select" id="periodosSelect">
-                                        <option value="p1">P1 (Primeira Prova)</option>
-                                        <option value="p2">P2 (Segunda Prova)</option>
-                                        <option value="mac">MAC (Média de Atividades Contínuas)</option>
-                                        <option value="recuperacao">Recuperação</option>
-                                        <option value="exame">Exame Final</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Data da Avaliação</label>
-                                    <input type="date" class="form-control" id="dataAvaliacao">
-                                </div>
-                                <button class="btn btn-primary w-100" onclick="filtrarPorPeriodo()">Atualizar Pauta</button>
+            <main class="p-4">
+                <!-- Mini Pauta Principal -->
+                <div class="minipauta-container mb-4">
+                    <div class="minipauta-header">
+                        <h3><i class="fas fa-clipboard-list me-2"></i>Mini Pauta de Notas</h3>
+                        <div class="header-info">
+                            <div class="info-item">
+                                <span class="info-label">Disciplina</span>
+                                <span class="info-value" id="disciplinaDisplay">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Classe</span>
+                                <span class="info-value" id="classeDisplay">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Curso</span>
+                                <span class="info-value" id="cursoDisplay">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Período</span>
+                                <span class="info-value" id="periodoDisplay">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Ano Letivo</span>
+                                <span class="info-value" id="anoLetivo">2024/2025</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="card border-0 shadow-sm bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Instruções</h5>
-                                <ul class="small">
-                                    <li>Preencha as notas direto na tabela abaixo</li>
-                                    <li>Valores entre 0 e 20</li>
-                                    <li>Deixe em branco se não avaliado</li>
-                                    <li>A média é calculada automaticamente</li>
-                                    <li>Clique "Guardar Alterações" ao terminar</li>
-                                </ul>
-                            </div>
+                    <!-- Barra de Controles -->
+                    <div class="controls-bar">
+                        <div>
+                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalSelecao">
+                                <i class="fas fa-cog me-2"></i>Selecionar Disciplina/Turma
+                            </button>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-success" onclick="guardarAlteracoes()">
+                                <i class="fas fa-save me-2"></i>Guardar Alterações
+                            </button>
+                            <button class="btn btn-sm btn-info" onclick="exportarPDF()">
+                                <i class="fas fa-file-pdf me-2"></i>Descarregar PDF
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                                <i class="fas fa-print me-2"></i>Imprimir
+                            </button>
                         </div>
                     </div>
-                </div>
 
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="card-title mb-0 fw-bold">Mini Pauta - <span id="periodoDisplay">P1</span></h5>
-                            <div class="gap-2 d-flex">
-                                <button class="btn btn-sm btn-success" onclick="guardarAlteracoes()">
-                                    ✓ Guardar Alterações
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary" onclick="window.print()">
-                                    🖨️ Imprimir
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body p-0" style="overflow-x: auto;">
-                        <table class="table table-striped pauta-table mb-0">
-                            <thead>
+                    <!-- Tabela da Mini Pauta -->
+                    <div style="overflow-x: auto; max-height: 700px; overflow-y: auto;">
+                        <table class="table minipauta-table">
+                            <thead class="sticky-top">
                                 <tr>
-                                    <th class="aluno-header">Nº</th>
-                                    <th class="aluno-header" style="min-width: 200px;">Nome do Aluno</th>
-                                    <th class="nota-header">P1</th>
-                                    <th class="nota-header">P2</th>
-                                    <th class="nota-header">MAC</th>
-                                    <th class="nota-header">Recuperação</th>
-                                    <th class="nota-header">Média Final</th>
-                                    <th class="nota-header">Situação</th>
+                                    <th style="width: 50px; text-align: center;">Nº</th>
+                                    <th style="width: 220px;">Nome Completo</th>
+                                    <th style="width: 80px; text-align: center;">Sexo</th>
+                                    
+                                    <!-- I TRIMESTRE -->
+                                    <th colspan="4" class="trimestre-header">I TRIMESTRE</th>
+                                    
+                                    <!-- II TRIMESTRE -->
+                                    <th colspan="4" class="trimestre-header">II TRIMESTRE</th>
+                                    
+                                    <!-- III TRIMESTRE -->
+                                    <th colspan="4" class="trimestre-header">III TRIMESTRE</th>
+                                    
+                                    <!-- MFD -->
+                                    <th style="width: 70px; text-align: center; background: #fff3cd;">MFD</th>
+                                </tr>
+                                <!-- Sub-headers para cada trimestre -->
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="sub-header trimestre-group">MAC</th>
+                                    <th class="sub-header trimestre-group">NPP</th>
+                                    <th class="sub-header trimestre-group">NPT</th>
+                                    <th class="sub-header trimestre-group">MT</th>
+                                    <th class="sub-header trimestre-group">MAC</th>
+                                    <th class="sub-header trimestre-group">NPP</th>
+                                    <th class="sub-header trimestre-group">NPT</th>
+                                    <th class="sub-header trimestre-group">MT</th>
+                                    <th class="sub-header trimestre-group">MAC</th>
+                                    <th class="sub-header trimestre-group">NPP</th>
+                                    <th class="sub-header trimestre-group">NPT</th>
+                                    <th class="sub-header trimestre-group">MT</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody id="pautaBody">
@@ -125,124 +836,477 @@
                     </div>
                 </div>
 
-                <div class="mt-4 mb-4">
+                <!-- Botão Final -->
+                <div class="mb-4">
                     <button class="btn btn-primary btn-lg w-100" onclick="guardarAlteracoes()">
-                        💾 Guardar Todas as Alterações
+                        <i class="fas fa-save me-2"></i>Guardar Todas as Alterações
                     </button>
                 </div>
             </main>
         </div>
     </div>
 
+    <!-- Modal de Seleção de Disciplina e Turma -->
+    <div class="modal fade" id="modalSelecao" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel">
+                        <i class="fas fa-edit me-2"></i>Selecionar Disciplina e Turma
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formSelecao">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="selectDisciplina" class="form-label">Disciplina <span class="text-danger">*</span></label>
+                                <select class="form-select" id="selectDisciplina" required>
+                                    <option value="">Selecione uma disciplina...</option>
+                                    <option value="mat">Matemática</option>
+                                    <option value="port">Português</option>
+                                    <option value="ing">Inglês</option>
+                                    <option value="hist">História</option>
+                                    <option value="geo">Geografia</option>
+                                    <option value="bio">Biologia</option>
+                                    <option value="fis">Física</option>
+                                    <option value="qui">Química</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selectTurma" class="form-label">Turma <span class="text-danger">*</span></label>
+                                <select class="form-select" id="selectTurma" required>
+                                    <option value="">Selecione uma turma...</option>
+                                    <option value="10A">10ª A</option>
+                                    <option value="10B">10ª B</option>
+                                    <option value="11A">11ª A</option>
+                                    <option value="11B">11ª B</option>
+                                    <option value="12A">12ª A</option>
+                                    <option value="12B">12ª B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="selectCurso" class="form-label">Curso <span class="text-danger">*</span></label>
+                                <select class="form-select" id="selectCurso" required>
+                                    <option value="">Selecione um curso...</option>
+                                    <option value="ciencias">Ciências</option>
+                                    <option value="letras">Letras</option>
+                                    <option value="tecnico">Técnico</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="selectTrimestre" class="form-label">Trimestre <span class="text-danger">*</span></label>
+                                <select class="form-select" id="selectTrimestre" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="1">I Trimestre</option>
+                                    <option value="2">II Trimestre</option>
+                                    <option value="3">III Trimestre</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="carregarDados()">
+                        <i class="fas fa-check me-2"></i>Carregando
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Indicador de carregamento -->
+    <div class="overlay" id="overlay"></div>
+    <div class="loading-spinner" id="loadingSpinner">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Carregando...</span>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="../../js/global.js"></script>
+    
     <script>
-        // Dados de exemplo
-        const alunos = [
-            { numero: 1, nome: 'João da Silva', p1: 17.5, p2: 16.0, mac: 17.0, recuperacao: '', media: 16.8 },
-            { numero: 2, nome: 'Maria Santos', p1: 18.0, p2: 17.5, mac: 16.5, recuperacao: '', media: 17.3 },
-            { numero: 3, nome: 'Pedro Costa', p1: 15.5, p2: 16.0, mac: 15.5, recuperacao: '', media: 15.7 },
-            { numero: 4, nome: 'Ana Ferreira', p1: 19.0, p2: 18.5, mac: 19.0, recuperacao: '', media: 18.8 },
-            { numero: 5, nome: 'Carlos Oliveira', p1: 14.0, p2: 15.0, mac: 14.5, recuperacao: '', media: 14.5 },
-            { numero: 6, nome: 'Madalena Silva', p1: 16.0, p2: 15.5, mac: 16.0, recuperacao: '', media: 15.8 },
-            { numero: 7, nome: 'Ricardo Mendes', p1: 13.5, p2: 14.0, mac: 13.0, recuperacao: 15.0, media: 14.5 },
-            { numero: 8, nome: 'Joana Rocha', p1: 17.0, p2: 16.5, mac: 17.5, recuperacao: '', media: 17.3 },
-            { numero: 9, nome: 'Tiago Alves', p1: 15.0, p2: 14.5, mac: 15.0, recuperacao: '', media: 14.8 },
-            { numero: 10, nome: 'Sofia Gomes', p1: 18.5, p2: 18.0, mac: 18.5, recuperacao: '', media: 18.3 },
-        ];
+        // Dados globais
+        let pautaAtual = {
+            disciplina: null,
+            turma: null,
+            curso: null,
+            trimestre: null,
+            alunos: []
+        };
 
-        // Obter turma da URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const turma = urlParams.get('turma') || '10A';
-        document.getElementById('turmaLabel').textContent = turma;
+        // Base de dados simulada - Em produção será do servidor
+        const bancoDados = {
+            alunos: [
+                { id: 1, nome: 'João Pedro Silva', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 2, nome: 'Maria Santos Ferreira', sexo: 'F', turma: '10A', curso: 'ciencias' },
+                { id: 3, nome: 'Pedro Costa Oliveira', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 4, nome: 'Ana Carolina Mendes', sexo: 'F', turma: '10A', curso: 'ciencias' },
+                { id: 5, nome: 'Carlos Manuel Rocha', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 6, nome: 'Madalena Gonçalves Silva', sexo: 'F', turma: '10A', curso: 'ciencias' },
+                { id: 7, nome: 'Ricardo Alves Dias', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 8, nome: 'Joana Rosa Gomes', sexo: 'F', turma: '10A', curso: 'ciencias' },
+                { id: 9, nome: 'Tiago Manuel Santos', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 10, nome: 'Sofia Fernanda Costa', sexo: 'F', turma: '10A', curso: 'ciencias' },
+                { id: 11, nome: 'Bruno Alexandre Neves', sexo: 'M', turma: '10A', curso: 'ciencias' },
+                { id: 12, nome: 'Catarina Isabel Luz', sexo: 'F', turma: '10A', curso: 'ciencias' },
+            ],
+            disciplinas: {
+                'mat': { nome: 'Matemática', classe: '10ª' },
+                'port': { nome: 'Português', classe: '10ª' },
+                'ing': { nome: 'Inglês', classe: '10ª' },
+                'hist': { nome: 'História', classe: '10ª' },
+                'geo': { nome: 'Geografia', classe: '10ª' },
+                'bio': { nome: 'Biologia', classe: '10ª' },
+                'fis': { nome: 'Física', classe: '10ª' },
+                'qui': { nome: 'Química', classe: '10ª' }
+            },
+            notas: {} // Estrutura: notas[disciplina][turma][trimestreId][alunoId] = {mac, npp, npt, mt}
+        };
 
-        // Carregar pauta na tabela
-        function carregarPauta() {
-            const tbody = document.getElementById('pautaBody');
-            tbody.innerHTML = alunos.map(aluno => `
-                <tr>
-                    <td class="aluno-header" style="width: 50px;">${aluno.numero}</td>
-                    <td class="aluno-header">${aluno.nome}</td>
-                    <td class="nota-header">
-                        <input type="number" class="form-control form-control-sm" value="${aluno.p1 || ''}" 
-                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="p1" 
-                               onchange="calcularMedia(${aluno.numero})">
-                    </td>
-                    <td class="nota-header">
-                        <input type="number" class="form-control form-control-sm" value="${aluno.p2 || ''}" 
-                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="p2"
-                               onchange="calcularMedia(${aluno.numero})">
-                    </td>
-                    <td class="nota-header">
-                        <input type="number" class="form-control form-control-sm" value="${aluno.mac || ''}" 
-                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="mac"
-                               onchange="calcularMedia(${aluno.numero})">
-                    </td>
-                    <td class="nota-header">
-                        <input type="number" class="form-control form-control-sm" value="${aluno.recuperacao || ''}" 
-                               min="0" max="20" step="0.5" data-aluno="${aluno.numero}" data-tipo="recuperacao"
-                               onchange="calcularMedia(${aluno.numero})">
-                    </td>
-                    <td class="media-cell" style="width: 80px; text-align: center;">
-                        <span id="media-${aluno.numero}">${aluno.media.toFixed(1)}</span>
-                    </td>
-                    <td style="text-align: center;">
-                        <span id="situacao-${aluno.numero}" class="badge bg-success">
-                            ${aluno.media >= 10 ? 'Aprovado' : (aluno.media >= 8 ? 'Recuperação' : 'Reprovado')}
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
+        // Inicializar ao carregar página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Pauta de Notas - Angola carregada com sucesso');
+            inicializarModal();
+            // Carregar dados iniciais se houver na URL
+            const params = new URLSearchParams(window.location.search);
+            const disciplina = params.get('disciplina');
+            const turma = params.get('turma');
+            if (disciplina && turma) {
+                carregarPautaPorURL(disciplina, turma);
+            }
+        });
+
+        // Inicializar modal
+        function inicializarModal() {
+            const modalBtn = document.querySelector('[data-bs-target="#modalSelecao"]');
+            if (!modalBtn.hasListener) {
+                // Primeira vez
+                modalBtn.hasListener = true;
+            }
         }
 
-        // Calcular média dinamicamente
-        function calcularMedia(numeroAluno) {
-            const p1 = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="p1"]`).value) || 0;
-            const p2 = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="p2"]`).value) || 0;
-            const mac = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="mac"]`).value) || 0;
-            const recuperacao = parseFloat(document.querySelector(`input[data-aluno="${numeroAluno}"][data-tipo="recuperacao"]`).value) || 0;
-
-            let media = 0;
-            let count = 0;
-
-            if (p1 > 0) { media += p1; count++; }
-            if (p2 > 0) { media += p2; count++; }
-            if (mac > 0) { media += mac; count++; }
-            if (recuperacao > 0) { media = (recuperacao + mac) / 2; count = 2; } // Recuperação substitui P1 e P2
-
-            media = count > 0 ? media / count : 0;
-
-            document.getElementById(`media-${numeroAluno}`).textContent = media.toFixed(1);
-
-            // Atualizar situação
-            const situacao = media >= 10 ? 'Aprovado' : (media >= 8 ? 'Recuperação' : 'Reprovado');
-            const cores = media >= 10 ? 'bg-success' : (media >= 8 ? 'bg-warning text-dark' : 'bg-danger');
-            document.getElementById(`situacao-${numeroAluno}`).textContent = situacao;
-            document.getElementById(`situacao-${numeroAluno}`).className = `badge ${cores}`;
+        // Carregar dados da pauta por URL
+        function carregarPautaPorURL(disciplina, turma) {
+            document.getElementById('selectDisciplina').value = disciplina;
+            document.getElementById('selectTurma').value = turma;
+            document.getElementById('selectCurso').value = 'ciencias';
+            document.getElementById('selectTrimestre').value = '1';
         }
 
-        // Filtrar por período (apenas visual - em produção conectar com BD)
-        function filtrarPorPeriodo() {
-            const periodo = document.getElementById('periodosSelect').value;
-            const periodoDisplay = {
-                'p1': 'P1 (Primeira Prova)',
-                'p2': 'P2 (Segunda Prova)',
-                'mac': 'MAC (Média de Atividades Contínuas)',
-                'recuperacao': 'Recuperação',
-                'exame': 'Exame Final'
+        // Carregar dados ao confirmar no modal
+        function carregarDados() {
+            const disciplina = document.getElementById('selectDisciplina').value;
+            const turma = document.getElementById('selectTurma').value;
+            const curso = document.getElementById('selectCurso').value;
+            const trimestre = document.getElementById('selectTrimestre').value;
+
+            if (!disciplina || !turma || !curso || !trimestre) {
+                alert('Por favor, preencha todos os campos');
+                return;
+            }
+
+            // Atualizar dados globais
+            pautaAtual = {
+                disciplina: disciplina,
+                turma: turma,
+                curso: curso,
+                trimestre: trimestre,
+                alunos: bancoDados.alunos.filter(a => a.turma === turma && a.curso === curso)
             };
-            document.getElementById('periodoDisplay').textContent = periodoDisplay[periodo];
-            alert(`Dados do período ${periodoDisplay[periodo]} serão carregados da base de dados`);
+
+            // Atualizar header
+            const disciplinaInfo = bancoDados.disciplinas[disciplina];
+            document.getElementById('disciplinaDisplay').textContent = disciplinaInfo.nome;
+            document.getElementById('classeDisplay').textContent = disciplinaInfo.classe + 'ª';
+            document.getElementById('cursoDisplay').textContent = curso.charAt(0).toUpperCase() + curso.slice(1);
+            document.getElementById('periodoDisplay').textContent = `${trimestre}º Trimestre`;
+
+            // Fechar modal
+            const modal = bootstrap.Modal.getInstance(document.getElementById('modalSelecao'));
+            modal.hide();
+
+            // Renderizar tabela
+            renderizarPauta();
         }
 
-        // Guardar alterações
+        // Renderizar tabela da pauta
+        function renderizarPauta() {
+            const tbody = document.getElementById('pautaBody');
+            tbody.innerHTML = '';
+
+            pautaAtual.alunos.forEach((aluno, index) => {
+                const linha = document.createElement('tr');
+                
+                // Número e dados do aluno
+                let html = `
+                    <td style="text-align: center; font-weight: 600;">${index + 1}</td>
+                    <td class="aluno-info">${aluno.nome}</td>
+                    <td style="text-align: center;">${aluno.sexo === 'M' ? 'Masculino' : 'Feminino'}</td>
+                `;
+
+                // Gerar células de notas para cada trimestre
+                const trimestres = [1, 2, 3];
+                trimestres.forEach(tri => {
+                    const notas = obterNotas(aluno.id, tri);
+                    
+                    // MAC
+                    html += `<td class="trimestre-group">
+                        <input type="number" class="nota-input" 
+                               data-aluno="${aluno.id}" data-campo="mac" data-trimestre="${tri}"
+                               min="0" max="20" step="0.5" 
+                               value="${notas.mac || ''}" 
+                               onchange="atualizarNota(this)"
+                               placeholder="-">
+                    </td>`;
+                    
+                    // NPP
+                    html += `<td class="trimestre-group">
+                        <input type="number" class="nota-input" 
+                               data-aluno="${aluno.id}" data-campo="npp" data-trimestre="${tri}"
+                               min="0" max="20" step="0.5" 
+                               value="${notas.npp || ''}" 
+                               onchange="atualizarNota(this)"
+                               placeholder="-">
+                    </td>`;
+                    
+                    // NPT
+                    html += `<td class="trimestre-group">
+                        <input type="number" class="nota-input" 
+                               data-aluno="${aluno.id}" data-campo="npt" data-trimestre="${tri}"
+                               min="0" max="20" step="0.5" 
+                               value="${notas.npt || ''}" 
+                               onchange="atualizarNota(this)"
+                               placeholder="-">
+                    </td>`;
+                    
+                    // MT
+                    html += `<td class="trimestre-group">
+                        <input type="number" class="nota-input" 
+                               data-aluno="${aluno.id}" data-campo="mt" data-trimestre="${tri}"
+                               min="0" max="20" step="0.5" 
+                               value="${notas.mt || ''}" 
+                               onchange="atualizarNota(this)"
+                               placeholder="-">
+                    </td>`;
+                });
+
+                // MFD (Média Final) - calculada automaticamente
+                html += `<td class="mfd-cell" style="text-align: center;">
+                    <span id="mfd-${aluno.id}">-</span>
+                </td>`;
+
+                linha.innerHTML = html;
+                tbody.appendChild(linha);
+            });
+
+            // Calcular MFD para todos
+            calcularTodasMFD();
+        }
+
+        // Obter notas do aluno
+        function obterNotas(alunoId, trimestre) {
+            const chave = `${pautaAtual.disciplina}_${pautaAtual.turma}_${trimestre}`;
+            if (!bancoDados.notas[chave]) {
+                bancoDados.notas[chave] = {};
+            }
+            if (!bancoDados.notas[chave][alunoId]) {
+                bancoDados.notas[chave][alunoId] = { mac: '', npp: '', npt: '', mt: '' };
+            }
+            return bancoDados.notas[chave][alunoId];
+        }
+
+        // Atualizar nota e aplicar estilos
+        function atualizarNota(input) {
+            const alunoId = input.getAttribute('data-aluno');
+            const campo = input.getAttribute('data-campo');
+            const trimestre = input.getAttribute('data-trimestre');
+            const valor = input.value;
+
+            // Atualizar estilos
+            if (valor) {
+                input.classList.remove('empty');
+                input.classList.add('preenchido');
+            } else {
+                input.classList.add('empty');
+                input.classList.remove('preenchido');
+            }
+
+            // Salvar em memória
+            const notas = obterNotas(alunoId, trimestre);
+            notas[campo] = valor ? parseFloat(valor) : '';
+
+            // Recalcular MFD
+            calcularMFDAluno(alunoId);
+        }
+
+        // Calcular MFD de um aluno
+        function calcularMFDAluno(alunoId) {
+            let somaTrimestres = 0;
+            let trimestresComDados = 0;
+
+            for (let tri = 1; tri <= 3; tri++) {
+                const notas = obterNotas(alunoId, tri);
+                const notasTrimestre = [notas.mac, notas.npp, notas.npt, notas.mt]
+                    .filter(n => n !== '' && n !== null && n !== undefined);
+                
+                if (notasTrimestre.length > 0) {
+                    const mediaTrimestre = notasTrimestre.reduce((a, b) => a + b, 0) / notasTrimestre.length;
+                    somaTrimestres += mediaTrimestre;
+                    trimestresComDados++;
+                }
+            }
+
+            const mfd = trimestresComDados > 0 ? (somaTrimestres / trimestresComDados).toFixed(1) : '-';
+            const mfdElement = document.getElementById(`mfd-${alunoId}`);
+            if (mfdElement) {
+                mfdElement.textContent = mfd;
+            }
+        }
+
+        // Calcular MFD para todos alunos
+        function calcularTodasMFD() {
+            pautaAtual.alunos.forEach(aluno => {
+                calcularMFDAluno(aluno.id);
+            });
+        }
+
+        // Guardar alterações (AJAX)
         function guardarAlteracoes() {
-            alert('✓ Alterações guardadas com sucesso!\n\nEm produção:\n- Enviar dados para servidor PHP\n- Guardar em base de dados\n- Registar timestamp e utilizador');
-            // Em produção: Usar AJAX para enviar dados para PHP
+            if (!pautaAtual.disciplina) {
+                alert('Por favor, selecione uma disciplina e turma primeiro');
+                return;
+            }
+
+            mostrarCarregamento(true);
+
+            // Preparar dados
+            const dados = {
+                disciplina: pautaAtual.disciplina,
+                turma: pautaAtual.turma,
+                curso: pautaAtual.curso,
+                trimestre: pautaAtual.trimestre,
+                anoLetivo: document.getElementById('anoLetivo').textContent,
+                notas: []
+            };
+
+            // Coletar notas de cada aluno
+            pautaAtual.alunos.forEach(aluno => {
+                for (let tri = 1; tri <= 3; tri++) {
+                    const notas = obterNotas(aluno.id, tri);
+                    dados.notas.push({
+                        alunoId: aluno.id,
+                        trimestre: tri,
+                        mac: notas.mac || null,
+                        npp: notas.npp || null,
+                        npt: notas.npt || null,
+                        mt: notas.mt || null
+                    });
+                }
+            });
+
+            // Simular envio para servidor (Em produção seria: /api/pauta/guardar)
+            console.log('Dados a enviar:', dados);
+
+            // Simular delay de servidor
+            setTimeout(() => {
+                mostrarCarregamento(false);
+                mostrarNotificacao('success', '<i class="bi bi-check"></i> Alterações guardadas com sucesso! Dados sincronizados com o servidor.');
+                console.log('Resposta do servidor: OK');
+            }, 1000);
+
+            // Em produção descomentar:
+            /*
+            fetch('/api/pauta/guardar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dados)
+            })
+            .then(response => response.json())
+            .then(data => {
+                mostrarCarregamento(false);
+                if (data.success) {
+                    mostrarNotificacao('success', data.message);
+                } else {
+                    mostrarNotificacao('danger', data.message);
+                }
+            })
+            .catch(error => {
+                mostrarCarregamento(false);
+                mostrarNotificacao('danger', 'Erro ao guardar: ' + error.message);
+                console.error('Erro:', error);
+            });
+            */
         }
 
-        // Carregar pauta ao iniciar
-        carregarPauta();
+        // Exportar para PDF
+        function exportarPDF() {
+            if (!pautaAtual.disciplina) {
+                alert('Por favor, selecione uma disciplina e turma primeiro');
+                return;
+            }
+
+            mostrarCarregamento(true);
+
+            // Clonar tabela para PDF
+            const element = document.querySelector('.minipauta-container').cloneNode(true);
+            
+            // Remover barra de controles
+            const controlsBar = element.querySelector('.controls-bar');
+            if (controlsBar) controlsBar.remove();
+
+            // Configurar html2pdf
+            const opt = {
+                margin: 10,
+                filename: `MiniPauta_${pautaAtual.disciplina}_${pautaAtual.turma}_${pautaAtual.trimestre}T.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'landscape', unit: 'mm', format: 'a4' }
+            };
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                mostrarCarregamento(false);
+                mostrarNotificacao('success', '<i class="bi bi-check"></i> PDF descarregado com sucesso!');
+            });
+        }
+
+        // Mostrar notificação
+        function mostrarNotificacao(tipo, mensagem) {
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${tipo} alert-feedback`;
+            alertDiv.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-${tipo === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    <div>${mensagem}</div>
+                </div>
+            `;
+            document.body.appendChild(alertDiv);
+
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 4000);
+        }
+
+        // Mostrar/esconder carregamento
+        function mostrarCarregamento(mostrar) {
+            const spinner = document.getElementById('loadingSpinner');
+            const overlay = document.getElementById('overlay');
+            
+            if (mostrar) {
+                spinner.style.display = 'block';
+                overlay.style.display = 'block';
+            } else {
+                spinner.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

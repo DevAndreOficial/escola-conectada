@@ -31,3 +31,58 @@
 #alunos-table tbody tr:hover {
   background-color: rgba(0, 102, 204, 0.05);
 }
+
+/* Mini Pauta Angola - Estilos Adicionais */
+
+.minipauta-wrapper {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.05) 0%, rgba(0, 168, 132, 0.05) 100%);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-info {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .controls-bar {
+    flex-direction: column;
+  }
+  
+  .controls-bar > div {
+    width: 100% !important;
+  }
+  
+  .controls-bar button {
+    width: 100%;
+  }
+}
+
+/* Animações suaves */
+.nota-input {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.nota-input:hover {
+  border-color: var(--primary) !important;
+}
+
+/* Estilos para impressão melhorada */
+@media print {
+  .main-content {
+    width: 100%;
+  }
+  
+  #header-container,
+  #sidebar-container {
+    display: none !important;
+  }
+  
+  .minipauta-container {
+    margin: 0;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+}

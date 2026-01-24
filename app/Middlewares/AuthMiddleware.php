@@ -2,8 +2,10 @@
 
 namespace App\Middlewares;
 
+use App\Core\Helpers;
 use Pecee\Http\Middleware\IMiddleware;
 use Pecee\Http\Request;
+use Pecee\SimpleRouter\SimpleRouter;
 
 class AuthMiddleware implements IMiddleware
 {
@@ -13,8 +15,10 @@ class AuthMiddleware implements IMiddleware
             session_start();
         }
 
-        if (!isset($_SESSION['user'])) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+        if (empty($_SESSION['user'])) {
+            SimpleRouter::response()
+                ->redirect(Helpers::url('login'))
+                ->send();
             exit;
         }
     }

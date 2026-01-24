@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Professor</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/professores/professores.css">
 </head>
@@ -15,7 +16,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <span class="sidebar-logo-icon">📚</span>
+                    <i class="sidebar-logo-icon bi bi-book"></i>
                     <div>
                         <h2 class="sidebar-title">Escola</h2>
                     </div>
@@ -25,31 +26,31 @@
             <nav class="sidebar-menu" id="sidebar-menu">
                 <li>
                     <a href="dashboard.html" class="sidebar-link active">
-                        <span>📊</span>
+                        <i class="bi bi-bar-chart"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
                     <a href="publicar-avisos.html" class="sidebar-link">
-                        <span>📢</span>
+                        <i class="bi bi-megaphone"></i>
                         <span>Publicar Avisos</span>
                     </a>
                 </li>
                 <li>
                     <a href="listar-turmas.html" class="sidebar-link">
-                        <span>👥</span>
+                        <i class="bi bi-people"></i>
                         <span>Turmas</span>
                     </a>
                 </li>
                 <li>
                     <a href="listar-alunos.html" class="sidebar-link">
-                        <span>👨‍🎓</span>
+                        <i class="bi bi-mortarboard"></i>
                         <span>Alunos</span>
                     </a>
                 </li>
                 <li>
                     <a href="relatorios.html" class="sidebar-link">
-                        <span>📋</span>
+                        <i class="bi bi-clipboard"></i>
                         <span>Relatórios</span>
                     </a>
                 </li>
@@ -57,7 +58,7 @@
 
             <div class="sidebar-footer">
                 <button class="sidebar-logout" id="logout-btn" onclick="logout()">
-                    <span>🚪</span>
+                    <i class="bi bi-box-arrow-right"></i>
                     <span>Sair</span>
                 </button>
             </div>
@@ -81,7 +82,7 @@
                                         <h6 class="text-muted mb-2">Minhas Turmas</h6>
                                         <h2 class="fw-bold" style="color: var(--primary);">5</h2>
                                     </div>
-                                    <span style="font-size: 2rem;">📚</span>
+                                    <i style="font-size: 2rem;" class="bi bi-book"></i>
                                 </div>
                                 <a href="listar-turmas.html" class="btn btn-sm btn-primary mt-3 w-100">Ver Turmas</a>
                             </div>
@@ -96,7 +97,7 @@
                                         <h6 class="text-muted mb-2">Meus Alunos</h6>
                                         <h2 class="fw-bold" style="color: var(--secondary);">127</h2>
                                     </div>
-                                    <span style="font-size: 2rem;">👨‍🎓</span>
+                                    <i style="font-size: 2rem;" class="bi bi-mortarboard"></i>
                                 </div>
                                 <a href="listar-alunos.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--secondary); border-color: var(--secondary); color: white;">Ver Alunos</a>
                             </div>
@@ -111,7 +112,7 @@
                                         <h6 class="text-muted mb-2">Relatórios</h6>
                                         <h2 class="fw-bold" style="color: var(--accent);">8</h2>
                                     </div>
-                                    <span style="font-size: 2rem;">📊</span>
+                                    <i style="font-size: 2rem;" class="bi bi-bar-chart"></i>
                                 </div>
                                 <a href="relatorios.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Ver Relatórios</a>
                             </div>

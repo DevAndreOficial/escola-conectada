@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Encarregado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="../../css/encarregados/encarregados.css">
 </head>
@@ -13,7 +14,7 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <span class="sidebar-logo-icon">📚</span>
+                    <i class="sidebar-logo-icon bi bi-book"></i>
                     <div>
                         <h2 class="sidebar-title">Escola</h2>
                     </div>
@@ -23,19 +24,31 @@
             <nav class="sidebar-menu" id="sidebar-menu">
                 <li>
                     <a href="dashboard.html" class="sidebar-link active">
-                        <span>📊</span>
+                        <i class="bi bi-bar-chart"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li>
+                    <a href="avisos.html" class="sidebar-link">
+                        <i class="bi bi-megaphone"></i>
+                        <span>Avisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="detalhes-aluno.html" class="sidebar-link">
+                        <i class="bi bi-person"></i>
+                        <span>Detalhes</span>
+                    </a>
+                </li>
+                <li>
                     <a href="ver-notas.html" class="sidebar-link">
-                        <span>📝</span>
+                        <i class="bi bi-pencil"></i>
                         <span>Notas</span>
                     </a>
                 </li>
                 <li>
                     <a href="ver-frequencia.html" class="sidebar-link">
-                        <span>✓</span>
+                        <i class="bi bi-check"></i>
                         <span>Frequência</span>
                     </a>
                 </li>
@@ -43,7 +56,7 @@
 
             <div class="sidebar-footer">
                 <button class="sidebar-logout" id="logout-btn" onclick="logout()">
-                    <span>🚪</span>
+                    <i class="bi bi-box-arrow-right"></i>
                     <span>Sair</span>
                 </button>
             </div>
@@ -54,8 +67,19 @@
 
             <main>
                 <div class="mb-4">
-                    <h2 class="fw-bold">Dashboard do Encarregado</h2>
-                    <p class="text-muted">Acompanhamento do desempenho do seu educando</p>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h2 class="fw-bold mb-0">Dashboard do Encarregado</h2>
+                            <p class="text-muted mb-0">Acompanhamento do desempenho do seu educando</p>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select form-select-sm" id="seletor-filhos" style="min-width: 200px;">
+                                <option value="1">João Silva (10ºA)</option>
+                                <option value="2">Maria Silva (8ºB)</option>
+                                <option value="3">Pedro Silva (6ºC)</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row g-4 mb-5">
@@ -67,7 +91,7 @@
                                         <h6 class="text-muted mb-2">Média de Notas</h6>
                                         <h2 class="fw-bold" style="color: var(--primary);">16,5</h2>
                                     </div>
-                                    <span style="font-size: 2rem;">📝</span>
+                                    <i style="font-size: 2rem;" class="bi bi-pencil"></i>
                                 </div>
                                 <a href="ver-notas.html" class="btn btn-sm btn-primary mt-3 w-100">Ver Notas</a>
                             </div>
@@ -79,10 +103,14 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-start">
                                     <div>
-                                        <h6 class="text-muted mb-2">Frequência</h6>
-                                        <h2 class="fw-bold" style="color: var(--secondary);">95%</h2>
+                                        <h6 class="text-muted mb-2">Detalhes</h6>
+                                        <p class="mb-0" style="font-size: 0.9rem;">Informações completas</p>
                                     </div>
-                                    <span style="font-size: 2rem;">✅</span>
+                                    <i style="font-size: 2rem;" class="bi bi-person"></i>
+                                </div>
+                                <a href="detalhes-aluno.html" class="btn btn-sm btn-info mt-3 w-100">Ver Detalhes</a>
+                            </div>
+                        </div>
                                 </div>
                                 <a href="ver-frequencia.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--secondary); border-color: var(--secondary); color: white;">Ver Frequência</a>
                             </div>
@@ -97,9 +125,9 @@
                                         <h6 class="text-muted mb-2">Avisos Novos</h6>
                                         <h2 class="fw-bold" style="color: var(--accent);">2</h2>
                                     </div>
-                                    <span style="font-size: 2rem;">📢</span>
+                                    <i style="font-size: 2rem;" class="bi bi-megaphone"></i>
                                 </div>
-                                <button class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Ver Avisos</button>
+                                <a href="avisos.html" class="btn btn-sm mt-3 w-100" style="background-color: var(--accent); border-color: var(--accent); color: white;">Ver Avisos</a>
                             </div>
                         </div>
                     </div>
@@ -147,5 +175,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../../js/global.js"></script>
     <script src="../../js/encarregados/encarregados.js"></script>
+    <script>
+        // Gestão de múltiplos filhos
+        document.getElementById('seletor-filhos').addEventListener('change', function() {
+            const alunoId = this.value;
+            console.log('Aluno selecionado:', alunoId);
+            // Aqui seria recarregado os dados do novo aluno
+            carregarDadosAluno(alunoId);
+        });
+
+        function carregarDadosAluno(alunoId) {
+            // Função para carregar dados do aluno via AJAX
+            console.log('Carregando dados do aluno:', alunoId);
+            // Exemplo: fetch(`/api/alunos/${alunoId}`)
+        }
+    </script>
 </body>
 </html>

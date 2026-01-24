@@ -7,9 +7,13 @@ define('SITE_NOME', 'Escola Conectada');
 define('SITE_DESCRICAO', 'Sistema');
 define('APP_DEBUG', true);
 
-define('URL_DESENVOLVIMENTO', '/www.escola-conectada.com');
-define('URL_PRODUCAO', 'https://www.escola-conectada.com');
-define('URL_BASE', '/www.escola-conectada.com/');
+define('APP_ENV', $_SERVER['SERVER_NAME'] === 'localhost' ? 'dev' : 'prod');
+
+define('APP_URL_DEV', 'http://localhost');
+define('APP_URL_PROD', 'https://www.escola-conectada.com');
+
+define('APP_BASE_PATH', '/www.escola-conectada.com');
+
 
 // Configurações de Banco de Dados
 define('DB_HOST', 'localhost');
@@ -26,9 +30,9 @@ define('DB_OPCOES', [
 ]);
 
 // Recursos Públicos
-define('URL_CSS', URL_BASE . 'public/css/');
-define('URL_JS',  URL_BASE . 'public/js/');
-define('URL_IMG', URL_BASE . 'public/img/');
+define('URL_CSS', APP_BASE_PATH . 'public/css/');
+define('URL_JS',  APP_BASE_PATH . 'public/js/');
+define('URL_IMG', APP_BASE_PATH . 'public/img/');
 
 // Caminho físico do projeto no servidor
 define('DIR_PATH', __DIR__ . '/'); 

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Aluno - Encarregado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="../../css/encarregados/encarregados.css">
+    <style>
+        .aluno-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .aluno-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-ativo {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-repouso {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .estatisticas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card h6 {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .disciplinas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .disciplina-card {
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .disciplina-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .disciplina-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+        }
+
+        .disciplina-body {
+            padding: 15px;
+        }
+
+        .nota-indicador {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nota-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .nota-valor {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .nota-excelente {
+            color: #28a745;
+        }
+
+        .nota-bom {
+            color: #007bff;
+        }
+
+        .nota-satisfatorio {
+            color: #ffc107;
+        }
+
+        .nota-insuficiente {
+            color: #dc3545;
+        }
+
+        .frequencia-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .frequencia-fill {
+            height: 100%;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+
+        .tabs-info {
+            margin-top: 30px;
+        }
+
+        .nav-tabs .nav-link {
+            color: #666;
+            border: none;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--primary);
+            border-color: var(--primary);
+            background-color: transparent;
+        }
+
+        .tab-content {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            margin-top: -1px;
+        }
+
+        .atividade-item {
+            padding: 15px;
+            border-left: 4px solid var(--primary);
+            background-color: white;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .atividade-data {
+            font-size: 0.85rem;
+            color: #999;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .aluno-header {
+                text-align: center;
+            }
+
+            .estatisticas-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .disciplinas-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-layout d-flex">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="sidebar-logo-icon bi bi-book"></i>
+                    <div>
+                        <h2 class="sidebar-title">Escola</h2>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu" id="sidebar-menu">
+                <li>
+                    <a href="dashboard.html" class="sidebar-link">
+                        <i class="bi bi-bar-chart"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="avisos.html" class="sidebar-link">
+                        <i class="bi bi-megaphone"></i>
+                        <span>Avisos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="detalhes-aluno.html" class="sidebar-link active">
+                        <i class="bi bi-person"></i>
+                        <span>Detalhes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ver-notas.html" class="sidebar-link">
+                        <i class="bi bi-pencil"></i>
+                        <span>Notas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="ver-frequencia.html" class="sidebar-link">
+                        <i class="bi bi-check"></i>
+                        <span>Frequência</span>
+                    </a>
+                </li>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="sidebar-logout" id="logout-btn" onclick="logout()">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sair</span>
+                </button>
+            </div>
+        </aside>
+
+        <div class="main-content">
+            <div id="header-container"></div>
+
+            <main>
+                <!-- Selector de Filhos (se houver múltiplos) -->
+                <div class="mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <h2 class="fw-bold mb-0">Detalhes do Aluno</h2>
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select form-select-sm" id="seletor-alunos">
+                                <option value="1">João Silva (10ºA)</option>
+                                <option value="2">Maria Silva (8ºB)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p class="text-muted">Informações completas do desempenho escolar</p>
+                </div>
+
+                <!-- Header do Aluno -->
+                <div class="aluno-header">
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <div class="aluno-avatar"><i class="bi bi-mortarboard"></i></div>
+                            <h3 class="mb-0 fw-bold">João Silva</h3>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="info-label">Número do Aluno</div>
+                                    <div class="info-value text-white">001234</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-label">Turma</div>
+                                    <div class="info-value text-white">10ºA</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-label">Ano Letivo</div>
+                                    <div class="info-value text-white">2025/2026</div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="info-label">Estado</div>
+                                    <div class="info-value text-white">
+                                        <span class="status-badge status-ativo">
+                                            <i class="fas fa-check-circle me-1"></i>Ativo
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estatísticas -->
+                <div class="estatisticas-grid">
+                    <div class="stat-card">
+                        <h6>Média Geral</h6>
+                        <div class="stat-value">16,5</div>
+                        <small class="text-muted">em 20 valores</small>
+                    </div>
+                    <div class="stat-card">
+                        <h6>Frequência</h6>
+                        <div class="stat-value">95%</div>
+                        <small class="text-muted">88 dias presentes</small>
+                    </div>
+                    <div class="stat-card">
+                        <h6>Disciplinas</h6>
+                        <div class="stat-value">12</div>
+                        <small class="text-muted">inscritas este ano</small>
+                    </div>
+                    <div class="stat-card">
+                        <h6>Participação</h6>
+                        <div class="stat-value">Muito Bom</div>
+                        <small class="text-muted">em aula</small>
+                    </div>
+                </div>
+
+                <!-- Disciplinas -->
+                <div class="mb-5">
+                    <h4 class="fw-bold mb-3">Desempenho por Disciplina</h4>
+                    <div class="disciplinas-grid">
+                        <!-- Disciplina 1 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">Português</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-bom">17</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-excelente">18</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-bom">16</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-bom" style="font-size: 1.3rem;">17</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 92%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 92%</small>
+                            </div>
+                        </div>
+
+                        <!-- Disciplina 2 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">Matemática</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-excelente">19</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-excelente">18</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-bom">17</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-excelente" style="font-size: 1.3rem;">18</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 100%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 100%</small>
+                            </div>
+                        </div>
+
+                        <!-- Disciplina 3 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">Inglês</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-satisfatorio">15</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-bom">16</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-satisfatorio">14</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-satisfatorio" style="font-size: 1.3rem;">15</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 88%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 88%</small>
+                            </div>
+                        </div>
+
+                        <!-- Disciplina 4 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">Física</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-bom">16</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-bom">17</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-excelente">18</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-bom" style="font-size: 1.3rem;">17</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 96%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 96%</small>
+                            </div>
+                        </div>
+
+                        <!-- Disciplina 5 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">Química</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-satisfatorio">14</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-satisfatorio">15</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-bom">16</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-satisfatorio" style="font-size: 1.3rem;">15</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 91%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 91%</small>
+                            </div>
+                        </div>
+
+                        <!-- Disciplina 6 -->
+                        <div class="disciplina-card">
+                            <div class="disciplina-header">
+                                <h6 class="mb-0">História</h6>
+                            </div>
+                            <div class="disciplina-body">
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 1</span>
+                                    <span class="nota-valor nota-excelente">19</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 2</span>
+                                    <span class="nota-valor nota-bom">17</span>
+                                </div>
+                                <div class="nota-indicador">
+                                    <span class="nota-label">Teste 3</span>
+                                    <span class="nota-valor nota-excelente">18</span>
+                                </div>
+                                <div class="nota-indicador" style="border: none;">
+                                    <span class="nota-label fw-bold">Média</span>
+                                    <span class="nota-valor nota-bom" style="font-size: 1.3rem;">18</span>
+                                </div>
+                                <div class="frequencia-bar">
+                                    <div class="frequencia-fill" style="width: 94%;"></div>
+                                </div>
+                                <small class="text-muted">Frequência: 94%</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Abas de Informações Adicionais -->
+                <div class="tabs-info">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#atividades">
+                                <i class="fas fa-list me-2"></i>Atividades Recentes
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#comportamento">
+                                <i class="fas fa-chart-bar me-2"></i>Comportamento
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#observacoes">
+                                <i class="fas fa-sticky-note me-2"></i>Observações
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="atividades">
+                            <div class="atividade-item">
+                                <div class="atividade-data">21 de Janeiro de 2026</div>
+                                <strong>Apresentou trabalho de Física</strong>
+                                <p class="mb-0 mt-2">Apresentação sobre energia cinética com excelente desempenho.</p>
+                            </div>
+                            <div class="atividade-item">
+                                <div class="atividade-data">19 de Janeiro de 2026</div>
+                                <strong>Teste de Matemática</strong>
+                                <p class="mb-0 mt-2">Obteve classificação de 18 valores em teste de análise matemática.</p>
+                            </div>
+                            <div class="atividade-item">
+                                <div class="atividade-data">15 de Janeiro de 2026</div>
+                                <strong>Participação em projeto</strong>
+                                <p class="mb-0 mt-2">Projeto interdisciplinar de História e Português - Nota 17.</p>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="comportamento">
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Disciplina em Aula</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-check-circle me-2"></i>Muito Bom
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Respeito pelo Professor</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-check-circle me-2"></i>Muito Bom
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Relacionamento com Colegas</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-check-circle me-2"></i>Muito Bom
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-2">
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Assiduidade</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-check-circle me-2"></i>Excelente
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Pontualidade</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-check-circle me-2"></i>Muito Bom
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="info-box">
+                                        <div class="info-label">Atitudes Negativas</div>
+                                        <div class="info-value text-success">
+                                            <i class="fas fa-times-circle me-2"></i>Nenhuma
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="observacoes">
+                            <div class="info-box">
+                                <p class="mb-0">
+                                    <strong>Observações do Diretor de Turma:</strong>
+                                    <br><br>
+                                    O João é um aluno muito dedicado, com excelente desempenho académico. 
+                                    Destaca-se pela sua participação ativa nas aulas e pelo seu comportamento exemplar. 
+                                    Recomenda-se a continuação deste excelente trabalho e o incentivo para participar 
+                                    em atividades extracurriculares de enriquecimento.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../js/global.js"></script>
+    <script src="../../js/encarregados/encarregados.js"></script>
+    <script>
+        // Mudar aluno selecionado
+        document.getElementById('seletor-alunos').addEventListener('change', function() {
+            console.log('Aluno selecionado:', this.value);
+            // Aqui seria recarregado os dados do novo aluno
+        });
+    </script>
+</body>
+</html>

@@ -1,11 +1,6 @@
 // Global JavaScript - Escola Conectada
 
-console.log("[Sistema] Escola Conectada carregado")
-
-// Carregar componentes globais
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("[Sistema] Inicializando componentes globais")
-
   const userType = localStorage.getItem("userType")
   const isLoginPage = !userType && !document.getElementById("sidebar")
 
@@ -14,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     loadHeader()
     initializeNavigation()
+    initializeSidebarToggle()
   }
 })
 
@@ -30,7 +26,6 @@ function initializeLogin() {
         localStorage.setItem("userType", profile)
         localStorage.setItem("userEmail", email)
         
-        // Redirecionar para dashboard do perfil
         const dashboardPath = {
           aluno: "views/aluno/dashboard.html",
           professor: "views/professores/dashboard.html",
@@ -45,12 +40,10 @@ function initializeLogin() {
   }
 }
 
-
 // ==================== HEADER ==================== 
 function loadHeader() {
   const headerContainer = document.getElementById("header-container")
   if (headerContainer) {
-    // Determinar o caminho correto baseado na localização do arquivo
     const path = window.location.pathname
     const isInSubfolder = path.includes('/views/')
     const headerPath = isInSubfolder ? "../../views/global/header.html" : "views/global/header.html"
@@ -63,6 +56,7 @@ function loadHeader() {
       .then((html) => {
         headerContainer.innerHTML = html
         updateUserInfo()
+        setupToggleButtons()
       })
       .catch((err) => console.error("[Erro] Falha ao carregar header:", err))
   }
@@ -81,16 +75,76 @@ function updateUserInfo() {
   }
 }
 
+// ==================== SIDEBAR TOGGLE ==================== 
+function initializeSidebarToggle() {
+  setupToggleButtons()
+}
 
+function setupToggleButtons() {
+  const sidebarToggleBtn = document.getElementById("sidebar-toggle-btn")
+  const sidebar = document.getElementById("sidebar")
+  const mainContent = document.querySelector(".main-content")
+
+  if (!sidebarToggleBtn || !sidebar || !mainContent) return
+
+  // Toggle: fechar/abrir sidebar
+  sidebarToggleBtn.addEventListener("click", (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    
+    const isHidden = sidebar.classList.contains("hidden")
+    
+    if (isHidden) {
+      // Abrir sidebar
+      sidebar.classList.remove("hidden")
+      mainContent.classList.remove("full-width")
+      document.body.style.overflow = "auto"
+    } else {
+      // Fechar sidebar
+      sidebar.classList.add("hidden")
+      mainContent.classList.add("full-width")
+    }
+  })
+
+  // Fechar sidebar ao clicar fora (em mobile)
+  document.addEventListener("click", (e) => {
+    const isClickInsideSidebar = sidebar.contains(e.target)
+    const isClickOnButton = sidebarToggleBtn.contains(e.target)
+    
+    if (!isClickInsideSidebar && !isClickOnButton && window.innerWidth <= 768) {
+      if (!sidebar.classList.contains("hidden")) {
+        sidebar.classList.add("hidden")
+        mainContent.classList.add("full-width")
+      }
+    }
+  })
+
+  // Abrir sidebar ao clicar em um link do menu (mobile)
+  const sidebarLinks = document.querySelectorAll(".sidebar-menu a")
+  sidebarLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768 && sidebar.classList.contains("hidden")) {
+        sidebar.classList.remove("hidden")
+        mainContent.classList.remove("full-width")
+      }
+    })
+  })
+
+  // Reabrir sidebar se viewport aumentar para desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 768) {
+      sidebar.classList.remove("hidden")
+      mainContent.classList.remove("full-width")
+    }
+  })
+}
 
 // ==================== INICIALIZAÇÃO NAVEGAÇÃO ==================== 
 function initializeNavigation() {
-  console.log("[Sistema] Navegação inicializada")
-}
-
+  // Navegação inicializada
 // ==================== LOGOUT ====================
 function logout() {
   localStorage.removeItem("userEmail")
   localStorage.removeItem("userType")
-  window.location.href = "http://localhost/www.escola-conectada.com/login"
+  window.location.href = "../../index.html"
 }

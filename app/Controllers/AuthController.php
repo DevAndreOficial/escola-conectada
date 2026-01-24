@@ -30,7 +30,7 @@ class AuthController extends Controller
         $senha = filter_input(INPUT_POST, 'senha');
 
         if (!$login || !$senha) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+            header('Location: ' . APP_BASE_PATH . '/login');
             exit;
         }
         
@@ -39,19 +39,19 @@ class AuthController extends Controller
 
         // Usuário não existe
         if (!$user) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+            header('Location: ' . APP_BASE_PATH . '/login');
             exit;
         }
         // Usuário inativo
         if ((int)$user->status !== 1) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+            header('Location: ' . APP_BASE_PATH . '/login');
             exit;
         }
 
 
         // Senha inválida
         if (!password_verify($senha, $user->senha)) {
-            header('Location: ' . URL_DESENVOLVIMENTO . '/login');
+            header('Location: ' . APP_BASE_PATH . '/login');
             exit;
         }
 
@@ -80,7 +80,7 @@ class AuthController extends Controller
                 $destino = '/';
         }
 
-        header('Location: ' . URL_DESENVOLVIMENTO . $destino);
+        header('Location: ' . APP_BASE_PATH . $destino);
         exit;
     }
 }

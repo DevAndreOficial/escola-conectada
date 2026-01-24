@@ -23,7 +23,7 @@ try {
     | Grupo principal com prefixo do ambiente
     |--------------------------------------------------
     */
-    Router::group(['prefix' => URL_DESENVOLVIMENTO], function () {
+    Router::group(['prefix' => APP_BASE_PATH], function () {
 
         /*
         |----------------------------

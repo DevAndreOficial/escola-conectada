@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minhas Tarefas</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../../css/global.css">
     <style>
         .tarefa-card {
@@ -113,16 +114,16 @@
                     <div class="col-md-12">
                         <div class="d-flex gap-2 flex-wrap">
                             <button class="btn btn-sm btn-outline-primary filtro-btn active" data-filter="todos">
-                                📋 Todas
+                                <i class="bi bi-clipboard"></i> Todas
                             </button>
                             <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="pendentes">
-                                ⏳ Pendentes
+                                <i class="bi bi-hourglass"></i> Pendentes
                             </button>
                             <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="urgentes">
-                                🔴 Urgentes
+                                <i class="bi bi-exclamation-circle"></i> Urgentes
                             </button>
                             <button class="btn btn-sm btn-outline-primary filtro-btn" data-filter="concluidas">
-                                ✅ Concluídas
+                                <i class="bi bi-check-circle"></i> Concluídas
                             </button>
                         </div>
                     </div>
@@ -131,7 +132,7 @@
                 <!-- Tarefas Urgentes -->
                 <div class="row mb-5">
                     <div class="col-md-12">
-                        <h5 class="mb-3">🔴 Tarefas Urgentes</h5>
+                        <h5 class="mb-3"><i class="bi bi-exclamation-circle"></i> Tarefas Urgentes</h5>
                         
                         <div class="card border-0 shadow-sm tarefa-card urgente mb-3">
                             <div class="card-body">
@@ -201,7 +202,7 @@
                 <!-- Tarefas Pendentes -->
                 <div class="row mb-5">
                     <div class="col-md-12">
-                        <h5 class="mb-3">⏳ Outras Tarefas Pendentes</h5>
+                        <h5 class="mb-3"><i class="bi bi-hourglass"></i> Outras Tarefas Pendentes</h5>
                         
                         <div class="card border-0 shadow-sm tarefa-card mb-3">
                             <div class="card-body">
@@ -292,7 +293,7 @@
                 <!-- Tarefas Concluídas -->
                 <div class="row">
                     <div class="col-md-12">
-                        <h5 class="mb-3">✅ Tarefas Recentemente Concluídas</h5>
+                        <h5 class="mb-3"><i class="bi bi-check-circle"></i> Tarefas Recentemente Concluídas</h5>
                         
                         <div class="card border-0 shadow-sm tarefa-card concluida mb-2">
                             <div class="card-body">

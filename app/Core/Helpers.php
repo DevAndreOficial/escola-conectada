@@ -186,14 +186,19 @@ class Helpers
         return $dataFormatada;
     }
 
-    public static function url(string $url = null): string
+    public static function url(?string $path = ''): string
     {
-        $servidor = $_SERVER['SERVER_NAME'] ?? '';
-        $ambiente = ($servidor === 'localhost') ? URL_DESENVOLVIMENTO : URL_PRODUCAO;
+        $baseUrl = APP_ENV === 'dev'
+            ? APP_URL_DEV
+            : APP_URL_PROD;
 
-        // Remove barra no final do ambiente e no início da URL
-        return rtrim($ambiente, '/') . '/' . ltrim($url, '/');
+        $basePath = rtrim(APP_BASE_PATH, '/');
+        $path = ltrim($path ?? '', '/');
+
+        return rtrim($baseUrl, '/') . $basePath . ($path ? '/' . $path : '');
     }
+
+
 
     // function url(string $path, array $params = []): string
     // {

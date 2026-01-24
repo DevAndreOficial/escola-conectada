@@ -2,7 +2,7 @@
 
 namespace sistema\Suporte;
 
-use App\Nucleo\Helpers;
+use App\Core\Helpers;
 use Twig\Lexer;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
@@ -33,7 +33,7 @@ class Template
 
     private function registrarHelpers(): void
     {
-        $this->twig->addFunction(new TwigFunction('url', function (string $url = null) {
+        $this->twig->addFunction(new TwigFunction('url', function (string $url) {
             return Helpers::url($url);
         }));
 

@@ -15,7 +15,7 @@ class EncarregadoMiddleware implements IMiddleware
 
         if (
             empty($_SESSION['user']) ||
-            $_SESSION['user']['perfil'] !== 'aluno'
+            $_SESSION['user']['perfil'] !== 'encarregado'
         ) {
             header('Location: ' . URL_DESENVOLVIMENTO . '/encarregado');
             exit;
